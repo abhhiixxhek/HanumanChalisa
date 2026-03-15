@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="hi" data-theme="night">
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1A0800" id="themeMetaColor" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="हनुमान चालीसा" />
+  <meta name="description" content="श्री हनुमान चालीसा — Goswami Tulsidas · Beautiful animated devotional webpage" />
   <title>हनुमान चालीसा</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Cinzel+Decorative:wght@400;700;900&family=Rozha+One&family=Yatra+One&display=swap"
     rel="stylesheet" />
   <style>
+    /* ─── THEME VARIABLES ─── */
     :root {
       --saffron: #FF6B00;
       --deep-saffron: #E85D00;
@@ -17,9 +23,50 @@
       --crimson: #A50000;
       --maroon: #6B0F1A;
       --lotus-pink: #FF9EAF;
-      --cream: #FFF8ED;
-      --ash: #1A0A00;
-      --glow: rgba(255, 215, 0, .35);
+    }
+
+    /* NIGHT THEME */
+    [data-theme="night"] {
+      --bg: #1A0A00;
+      --bg2: #0D0400;
+      --bg3: #0A0200;
+      --card-bg: rgba(26, 8, 0, .7);
+      --card-bg2: rgba(40, 10, 0, .8);
+      --card-border: rgba(255, 215, 0, .12);
+      --card-border-left: #FF6B00;
+      --doha-bg1: rgba(107, 15, 26, .55);
+      --doha-bg2: rgba(165, 0, 0, .35);
+      --text: rgb(255, 248, 237);
+      --text-dim: rgba(255, 248, 237, .7);
+      --hero-rad1: rgba(255, 107, 0, .55);
+      --hero-rad2: rgba(165, 0, 0, .4);
+      --hero-rad3: rgba(107, 15, 26, .5);
+      --scrollbar-track: #0D0400;
+      --meta-color: #1A0800;
+      --fab-bg: rgba(26, 8, 0, .9);
+      --fab-border: rgba(255, 215, 0, .25);
+    }
+
+    /* DAY THEME */
+    [data-theme="day"] {
+      --bg: #FFF3E0;
+      --bg2: #FFF8ED;
+      --bg3: #FDEBD0;
+      --card-bg: rgba(255, 243, 224, .9);
+      --card-bg2: rgba(255, 235, 200, .95);
+      --card-border: rgba(180, 100, 0, .18);
+      --card-border-left: #C85000;
+      --doha-bg1: rgba(180, 60, 20, .12);
+      --doha-bg2: rgba(200, 80, 0, .08);
+      --text: rgb(60, 20, 0);
+      --text-dim: rgba(60, 20, 0, .65);
+      --hero-rad1: rgba(255, 140, 0, .35);
+      --hero-rad2: rgba(220, 80, 0, .25);
+      --hero-rad3: rgba(180, 60, 0, .2);
+      --scrollbar-track: #FFE0B2;
+      --meta-color: #FF6B00;
+      --fab-bg: rgba(255, 248, 237, .95);
+      --fab-border: rgba(180, 100, 0, .3);
     }
 
     *,
@@ -35,14 +82,15 @@
     }
 
     body {
-      background: var(--ash);
-      color: var(--cream);
+      background: var(--bg);
+      color: var(--text);
       font-family: 'Tiro Devanagari Hindi', serif;
       overflow-x: hidden;
-      cursor: none
+      cursor: none;
+      transition: background .5s ease, color .5s ease
     }
 
-    /* CURSOR */
+    /* ─── CURSOR (desktop only) ─── */
     #cursor {
       position: fixed;
       width: 22px;
@@ -52,42 +100,148 @@
       z-index: 9999;
       background: radial-gradient(circle, var(--gold) 30%, transparent 70%);
       transform: translate(-50%, -50%);
-      transition: transform .1s;
       mix-blend-mode: screen
     }
 
-    /* PARTICLES */
+    @media(pointer:coarse) {
+      #cursor {
+        display: none
+      }
+
+      body {
+        cursor: auto
+      }
+    }
+
+    /* ─── PARTICLES ─── */
     #particles {
       position: fixed;
       inset: 0;
       z-index: 0;
-      pointer-events: none
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity .5s
     }
 
-    /* HERO */
+    [data-theme="day"] #particles {
+      opacity: .35
+    }
+
+    /* ─── FAB STRIP (top-right controls) ─── */
+    .fab-strip {
+      position: fixed;
+      top: env(safe-area-inset-top, 1rem);
+      right: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      z-index: 200;
+      margin-top: 1rem;
+    }
+
+    .fab {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid var(--fab-border);
+      background: var(--fab-bg);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.3rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .3);
+      transition: transform .2s, box-shadow .2s, background .3s;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .fab:hover {
+      transform: scale(1.12);
+      box-shadow: 0 4px 20px rgba(255, 215, 0, .3)
+    }
+
+    .fab:active {
+      transform: scale(.95)
+    }
+
+    /* ─── INSTALL BANNER ─── */
+    #installBanner {
+      position: fixed;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: var(--fab-bg);
+      border: 1px solid var(--fab-border);
+      backdrop-filter: blur(16px);
+      border-radius: 16px;
+      padding: .8rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      z-index: 300;
+      transition: transform .4s cubic-bezier(.175, .885, .32, 1.275);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .4);
+      white-space: nowrap;
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: .75rem;
+      color: var(--gold);
+    }
+
+    #installBanner.show {
+      transform: translateX(-50%) translateY(0)
+    }
+
+    #installBanner button {
+      background: var(--saffron);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: .4rem .9rem;
+      font-size: .75rem;
+      cursor: pointer;
+      font-family: 'Cinzel Decorative', cursive;
+      transition: background .2s
+    }
+
+    #installBanner button:hover {
+      background: var(--deep-saffron)
+    }
+
+    #installBanner .dismiss {
+      background: transparent;
+      color: var(--text-dim);
+      padding: .4rem .5rem;
+      font-size: .85rem
+    }
+
+    /* ─── HERO ─── */
     .hero {
       position: relative;
-      min-height: 100vh;
+      min-height: 100svh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       z-index: 1;
-      padding: 2rem 1rem 6rem
+      padding: 2rem 1rem 6rem;
+      padding-top: max(2rem, env(safe-area-inset-top))
     }
 
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 107, 0, .55) 0%, transparent 65%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(165, 0, 0, .4) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 20% 90%, rgba(107, 15, 26, .5) 0%, transparent 60%),
-        linear-gradient(180deg, #0D0400 0%, #1A0800 50%, #0A0200 100%);
-      z-index: -1
+      z-index: -1;
+      transition: background .5s;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, var(--hero-rad1) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, var(--hero-rad2) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 90%, var(--hero-rad3) 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg2) 0%, var(--bg) 50%, var(--bg3) 100%)
     }
 
-    /* MANDALA */
     .mandala-ring {
       position: absolute;
       border-radius: 50%;
@@ -122,12 +276,14 @@
       }
     }
 
-    /* DIYA */
+    /* ─── DIYA ─── */
     .diya-row {
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
       margin-bottom: 1.5rem;
-      animation: fadeInDown .8s ease both
+      animation: fadeInDown .8s ease both;
+      flex-wrap: wrap;
+      justify-content: center
     }
 
     .diya {
@@ -199,7 +355,11 @@
       }
     }
 
-    /* OM */
+    [data-theme="day"] .flame {
+      filter: blur(.5px) drop-shadow(0 0 12px #FF8C00)
+    }
+
+    /* ─── OM / TITLE ─── */
     .om-symbol {
       font-size: 4.5rem;
       line-height: 1;
@@ -224,9 +384,13 @@
       }
     }
 
+    [data-theme="day"] .om-symbol {
+      text-shadow: 0 0 30px rgba(200, 100, 0, .5), 0 2px 0 rgba(0, 0, 0, .08)
+    }
+
     .hero-title {
       font-family: 'Cinzel Decorative', cursive;
-      font-size: clamp(1.8rem, 5.5vw, 4.2rem);
+      font-size: clamp(1.7rem, 5.5vw, 4rem);
       font-weight: 900;
       text-align: center;
       background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, var(--saffron) 70%, var(--gold-light) 100%);
@@ -261,29 +425,32 @@
       margin-top: .6rem;
       font-size: .85rem;
       letter-spacing: .15em;
-      color: rgba(255, 215, 0, .5);
+      color: rgba(255, 215, 0, .55);
       animation: fadeInDown 1s ease both .6s;
       font-family: 'Cinzel Decorative', cursive
     }
 
-    /* ═══════════════════════════════════ HANUMAN IMAGE SECTION ═══════════════════════════════════ */
+    [data-theme="day"] .author-tag {
+      color: rgba(160, 60, 0, .7)
+    }
+
+    /* ─── DEITY ─── */
     .deity-section {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       margin: 2.5rem 0 2rem;
-      animation: fadeInUp 1.2s ease both .8s;
+      animation: fadeInUp 1.2s ease both .8s
     }
 
-    /* Outer ripple rings */
     .deity-aura {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
-      z-index: 0;
+      z-index: 0
     }
 
     .aura-ring {
@@ -291,7 +458,7 @@
       border-radius: 50%;
       transform: translate(-50%, -50%);
       border: 1px solid rgba(255, 215, 0, .18);
-      animation: aura-pulse ease-in-out infinite;
+      animation: aura-pulse ease-in-out infinite
     }
 
     .aura-ring:nth-child(1) {
@@ -340,7 +507,6 @@
       }
     }
 
-    /* Glow disc behind image */
     .deity-glow-disc {
       position: absolute;
       top: 50%;
@@ -351,7 +517,7 @@
       border-radius: 50%;
       background: radial-gradient(circle, rgba(255, 200, 50, .28) 0%, rgba(255, 107, 0, .15) 45%, transparent 70%);
       animation: glow-breathe 4s ease-in-out infinite;
-      z-index: 1;
+      z-index: 1
     }
 
     @keyframes glow-breathe {
@@ -368,7 +534,6 @@
       }
     }
 
-    /* Image frame */
     .deity-frame {
       position: relative;
       z-index: 2;
@@ -377,13 +542,9 @@
       border-radius: 50% 50% 40% 40%/55% 55% 45% 45%;
       overflow: hidden;
       border: 2px solid rgba(255, 215, 0, .35);
-      box-shadow:
-        0 0 0 4px rgba(255, 107, 0, .12),
-        0 0 0 8px rgba(255, 215, 0, .08),
-        0 0 50px rgba(255, 200, 50, .25),
-        0 0 100px rgba(255, 107, 0, .15),
-        inset 0 0 30px rgba(0, 0, 0, .4);
-      animation: deity-float 5s ease-in-out infinite;
+      box-shadow: 0 0 0 4px rgba(255, 107, 0, .12), 0 0 0 8px rgba(255, 215, 0, .08),
+        0 0 50px rgba(255, 200, 50, .25), 0 0 100px rgba(255, 107, 0, .15), inset 0 0 30px rgba(0, 0, 0, .4);
+      animation: deity-float 5s ease-in-out infinite
     }
 
     @keyframes deity-float {
@@ -391,12 +552,12 @@
       0%,
       100% {
         transform: translateY(0);
-        box-shadow: 0 0 0 4px rgba(255, 107, 0, .12), 0 0 0 8px rgba(255, 215, 0, .08), 0 0 50px rgba(255, 200, 50, .25), 0 0 100px rgba(255, 107, 0, .15)
+        box-shadow: 0 0 0 4px rgba(255, 107, 0, .12), 0 0 0 8px rgba(255, 215, 0, .08), 0 0 50px rgba(255, 200, 50, .25), 0 0 100px rgba(255, 107, 0, .15), inset 0 0 30px rgba(0, 0, 0, .4)
       }
 
       50% {
         transform: translateY(-12px);
-        box-shadow: 0 12px 0 4px rgba(255, 107, 0, .08), 0 12px 0 8px rgba(255, 215, 0, .05), 0 12px 70px rgba(255, 200, 50, .35), 0 12px 130px rgba(255, 107, 0, .2)
+        box-shadow: 0 12px 0 4px rgba(255, 107, 0, .08), 0 12px 0 8px rgba(255, 215, 0, .05), 0 12px 70px rgba(255, 200, 50, .35), 0 12px 130px rgba(255, 107, 0, .2), inset 0 0 30px rgba(0, 0, 0, .4)
       }
     }
 
@@ -405,20 +566,17 @@
       height: 100%;
       object-fit: cover;
       object-position: center top;
-      filter: saturate(1.15) brightness(1.05) contrast(1.05);
-      mix-blend-mode: normal;
+      filter: saturate(1.15) brightness(1.05) contrast(1.05)
     }
 
-    /* Gold shimmer overlay on image */
     .deity-frame::after {
       content: '';
       position: absolute;
       inset: 0;
       background: linear-gradient(135deg, rgba(255, 215, 0, .08) 0%, transparent 40%, transparent 60%, rgba(255, 107, 0, .06) 100%);
-      pointer-events: none;
+      pointer-events: none
     }
 
-    /* Caption below image */
     .deity-caption {
       position: relative;
       z-index: 3;
@@ -427,7 +585,11 @@
       font-size: .75rem;
       letter-spacing: .4em;
       color: rgba(255, 215, 0, .6);
-      text-align: center;
+      text-align: center
+    }
+
+    [data-theme="day"] .deity-caption {
+      color: rgba(160, 60, 0, .7)
     }
 
     .deity-caption::before,
@@ -437,19 +599,51 @@
       color: var(--saffron)
     }
 
-    /* Lotus petals decoration below */
     .lotus-petals {
       position: relative;
       z-index: 3;
       margin-top: .8rem;
       font-size: 1.6rem;
       letter-spacing: .15rem;
-      color: rgba(255, 107, 0, .5);
-      animation: fadeIn .5s ease both;
+      color: rgba(255, 107, 0, .5)
     }
 
-    /* ═══════════════════════════════════════════════════════════════════════════════════════════ */
+    /* ─── READING MODE BUTTON ─── */
+    .reading-mode-btn {
+      position: relative;
+      z-index: 3;
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .75rem 1.8rem;
+      border: 1.5px solid rgba(255, 215, 0, .4);
+      border-radius: 50px;
+      background: rgba(255, 107, 0, .12);
+      backdrop-filter: blur(8px);
+      color: var(--gold);
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: .8rem;
+      letter-spacing: .1em;
+      cursor: pointer;
+      transition: all .3s;
+      -webkit-tap-highlight-color: transparent;
+      animation: fadeInUp 1s ease both 1.2s;
+    }
 
+    .reading-mode-btn:hover,
+    .reading-mode-btn:active {
+      background: rgba(255, 107, 0, .25);
+      border-color: var(--gold);
+      box-shadow: 0 0 20px rgba(255, 215, 0, .2);
+      transform: scale(1.04)
+    }
+
+    .reading-mode-btn .btn-icon {
+      font-size: 1.1rem
+    }
+
+    /* ─── SCROLL HINT ─── */
     .scroll-hint {
       position: absolute;
       bottom: 1.5rem;
@@ -514,7 +708,7 @@
       }
     }
 
-    /* DIVIDER */
+    /* ─── DIVIDER ─── */
     .divider {
       width: 100%;
       height: 3px;
@@ -541,7 +735,7 @@
       }
     }
 
-    /* MAIN */
+    /* ─── MAIN ─── */
     main {
       position: relative;
       z-index: 1;
@@ -557,8 +751,7 @@
       letter-spacing: .35em;
       color: var(--saffron);
       text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      position: relative
+      margin-bottom: 1.5rem
     }
 
     .section-label::before,
@@ -569,14 +762,15 @@
     }
 
     .doha-card {
-      background: linear-gradient(135deg, rgba(107, 15, 26, .55) 0%, rgba(165, 0, 0, .35) 50%, rgba(107, 15, 26, .55) 100%);
+      background: linear-gradient(135deg, var(--doha-bg1) 0%, var(--doha-bg2) 50%, var(--doha-bg1) 100%);
       border: 1px solid rgba(255, 215, 0, .25);
       border-radius: 12px;
       padding: 2rem 2.5rem;
       margin-bottom: 2rem;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 0 40px rgba(255, 107, 0, .12), inset 0 0 60px rgba(0, 0, 0, .3)
+      box-shadow: 0 0 40px rgba(255, 107, 0, .1), inset 0 0 60px rgba(0, 0, 0, .15);
+      transition: background .5s
     }
 
     .doha-card::before {
@@ -594,7 +788,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(255, 215, 0, .06), transparent 70%);
+      background: radial-gradient(ellipse at 50% 0%, rgba(255, 215, 0, .05), transparent 70%);
       pointer-events: none
     }
 
@@ -602,8 +796,8 @@
       font-size: clamp(1.05rem, 2.2vw, 1.25rem);
       line-height: 2.1;
       text-align: center;
-      color: var(--cream);
-      text-shadow: 0 1px 3px rgba(0, 0, 0, .5)
+      color: var(--text);
+      text-shadow: none
     }
 
     .doha-text .line {
@@ -616,16 +810,16 @@
     }
 
     .verse-card {
-      background: linear-gradient(145deg, rgba(26, 8, 0, .7) 0%, rgba(40, 10, 0, .8) 100%);
-      border: 1px solid rgba(255, 215, 0, .12);
-      border-left: 3px solid var(--saffron);
+      background: linear-gradient(145deg, var(--card-bg) 0%, var(--card-bg2) 100%);
+      border: 1px solid var(--card-border);
+      border-left: 3px solid var(--card-border-left);
       border-radius: 8px;
       padding: 1.6rem 2rem;
       position: relative;
       overflow: hidden;
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity .6s ease, transform .6s ease, box-shadow .3s ease, border-color .3s
+      transition: opacity .6s ease, transform .6s ease, box-shadow .3s ease, border-color .3s, background .5s
     }
 
     .verse-card.visible {
@@ -634,7 +828,7 @@
     }
 
     .verse-card:hover {
-      box-shadow: 0 0 30px rgba(255, 107, 0, .2), 0 4px 20px rgba(0, 0, 0, .5);
+      box-shadow: 0 0 25px rgba(255, 107, 0, .15), 0 4px 20px rgba(0, 0, 0, .15);
       border-left-color: var(--gold);
       border-color: rgba(255, 215, 0, .3)
     }
@@ -643,7 +837,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 0% 50%, rgba(255, 107, 0, .05), transparent 60%);
+      background: radial-gradient(ellipse at 0% 50%, rgba(255, 107, 0, .04), transparent 60%);
       pointer-events: none
     }
 
@@ -653,23 +847,21 @@
       right: .8rem;
       width: 28px;
       height: 28px;
-      background: rgba(255, 107, 0, .15);
-      border: 1px solid rgba(255, 107, 0, .3);
+      background: rgba(255, 107, 0, .12);
+      border: 1px solid rgba(255, 107, 0, .25);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: .65rem;
       font-family: 'Cinzel Decorative', cursive;
-      color: var(--saffron);
-      letter-spacing: 0
+      color: var(--saffron)
     }
 
     .verse-text {
       font-size: clamp(1rem, 2vw, 1.18rem);
       line-height: 2.2;
-      color: var(--cream);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, .4)
+      color: var(--text)
     }
 
     .verse-text .line {
@@ -681,10 +873,27 @@
       margin: 2.5rem 0 1rem;
       font-size: 1.6rem;
       letter-spacing: .3rem;
-      color: rgba(255, 215, 0, .35);
-      animation: fadeIn 1s ease both
+      color: rgba(255, 215, 0, .35)
     }
 
+    /* ─── PROGRESS BAR ─── */
+    .progress-bar-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      z-index: 100
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--saffron), var(--gold));
+      transition: width .1s linear
+    }
+
+    /* ─── FOOTER ─── */
     footer {
       position: relative;
       z-index: 1;
@@ -705,10 +914,15 @@
     .footer-text {
       font-size: .8rem;
       letter-spacing: .2em;
-      color: rgba(255, 215, 0, .4);
+      color: rgba(255, 215, 0, .45);
       font-family: 'Cinzel Decorative', cursive
     }
 
+    [data-theme="day"] .footer-text {
+      color: rgba(160, 60, 0, .5)
+    }
+
+    /* ─── FLOATING PETALS ─── */
     .petal {
       position: fixed;
       pointer-events: none;
@@ -732,12 +946,224 @@
       }
     }
 
+    /* ─── READING MODE OVERLAY ─── */
+    #readingOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease;
+    }
+
+    #readingOverlay.open {
+      opacity: 1;
+      pointer-events: all
+    }
+
+    .reading-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.4rem;
+      padding-top: max(1rem, env(safe-area-inset-top));
+      border-bottom: 1px solid rgba(255, 215, 0, .12);
+      background: var(--bg2);
+      flex-shrink: 0;
+    }
+
+    .reading-header-title {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: .9rem;
+      color: var(--gold);
+      letter-spacing: .15em;
+      text-align: center;
+      flex: 1
+    }
+
+    .reading-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 107, 0, .12);
+      border: 1px solid rgba(255, 107, 0, .25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--text);
+      transition: background .2s;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    .reading-close:hover {
+      background: rgba(255, 107, 0, .25)
+    }
+
+    .reading-progress-wrap {
+      padding: .75rem 1.4rem .5rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      flex-shrink: 0;
+    }
+
+    .reading-prog-bar {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 215, 0, .12);
+      border-radius: 2px;
+      overflow: hidden
+    }
+
+    .reading-prog-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--saffron), var(--gold));
+      border-radius: 2px;
+      transition: width .4s ease
+    }
+
+    .reading-prog-label {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: .72rem;
+      color: var(--saffron);
+      white-space: nowrap;
+      min-width: 50px;
+      text-align: right
+    }
+
+    .reading-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 2rem 1rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .reading-verse-type {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: .72rem;
+      letter-spacing: .35em;
+      color: var(--saffron);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      opacity: .8;
+    }
+
+    .reading-verse-num {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: .8rem;
+      letter-spacing: .2em;
+      color: rgba(255, 215, 0, .5);
+      margin-bottom: 1.5rem;
+    }
+
+    .reading-text-wrap {
+      max-width: 580px;
+      width: 100%;
+      text-align: center;
+      animation: reading-in .4s cubic-bezier(.25, .8, .25, 1) both;
+    }
+
+    @keyframes reading-in {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .reading-line {
+      display: block;
+      font-size: clamp(1.15rem, 3.5vw, 1.65rem);
+      line-height: 2.2;
+      color: var(--text);
+      font-family: 'Tiro Devanagari Hindi', serif;
+    }
+
+    /* Ornamental separator between couplet lines */
+    .reading-sep {
+      display: block;
+      font-size: 1.2rem;
+      color: rgba(255, 215, 0, .3);
+      margin: .4rem 0;
+      letter-spacing: .3rem
+    }
+
+    .reading-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 1.2rem 1.4rem;
+      padding-bottom: max(1.2rem, env(safe-area-inset-bottom));
+      flex-shrink: 0;
+    }
+
+    .reading-nav-btn {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 215, 0, .25);
+      background: rgba(255, 107, 0, .08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.4rem;
+      color: var(--gold);
+      transition: all .2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .reading-nav-btn:hover,
+    .reading-nav-btn:active {
+      background: rgba(255, 107, 0, .2);
+      transform: scale(1.1)
+    }
+
+    .reading-nav-btn:disabled {
+      opacity: .3;
+      pointer-events: none
+    }
+
+    .reading-nav-center {
+      font-family: 'Yatra One', cursive;
+      font-size: clamp(.85rem, 2.5vw, 1.05rem);
+      color: var(--gold);
+      text-align: center;
+      min-width: 100px;
+      letter-spacing: .05em;
+    }
+
+    /* Swipe hint */
+    .swipe-hint {
+      font-size: .7rem;
+      letter-spacing: .15em;
+      color: rgba(255, 215, 0, .3);
+      text-align: center;
+      padding: .5rem;
+      font-family: 'Cinzel Decorative', cursive
+    }
+
+    /* ─── SCROLLBAR ─── */
     ::-webkit-scrollbar {
-      width: 6px
+      width: 5px
     }
 
     ::-webkit-scrollbar-track {
-      background: #0D0400
+      background: var(--scrollbar-track)
     }
 
     ::-webkit-scrollbar-thumb {
@@ -745,6 +1171,7 @@
       border-radius: 3px
     }
 
+    /* ─── RESPONSIVE ─── */
     @media(max-width:600px) {
       .hero-title {
         font-size: 1.6rem
@@ -755,33 +1182,33 @@
       }
 
       .deity-frame {
-        width: 190px;
-        height: 220px
+        width: 185px;
+        height: 215px
       }
 
       .aura-ring:nth-child(1) {
-        width: 260px;
-        height: 260px
+        width: 250px;
+        height: 250px
       }
 
       .aura-ring:nth-child(2) {
-        width: 310px;
-        height: 310px
+        width: 300px;
+        height: 300px
       }
 
       .aura-ring:nth-child(3) {
-        width: 360px;
-        height: 360px
+        width: 350px;
+        height: 350px
       }
 
       .aura-ring:nth-child(4) {
-        width: 410px;
-        height: 410px
+        width: 400px;
+        height: 400px
       }
 
       .deity-glow-disc {
-        width: 210px;
-        height: 210px
+        width: 200px;
+        height: 200px
       }
 
       main {
@@ -792,18 +1219,41 @@
       .verse-card {
         padding: 1.2rem 1.3rem
       }
+
+      .reading-line {
+        font-size: clamp(1.1rem, 4vw, 1.4rem)
+      }
     }
   </style>
 </head>
 
 <body>
+
   <div id="cursor"></div>
   <canvas id="particles"></canvas>
 
+  <!-- Progress bar -->
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="scrollProgress"></div>
+  </div>
+
+  <!-- FAB Controls -->
+  <div class="fab-strip">
+    <div class="fab" id="themeToggle" title="Toggle theme">🌙</div>
+    <div class="fab" id="readingFab" title="Reading mode">📖</div>
+  </div>
+
+  <!-- PWA Install Banner -->
+  <div id="installBanner">
+    <span>🪷 Add to Home Screen</span>
+    <button id="installBtn">Install</button>
+    <button class="dismiss" id="dismissInstall">✕</button>
+  </div>
+
+  <!-- Petals -->
   <script>
     (function () {
-      const n = 18;
-      for (let i = 0; i < n; i++) {
+      for (let i = 0; i < 18; i++) {
         const p = document.createElement('div'); p.className = 'petal';
         p.style.cssText = `left:${Math.random() * 100}vw;top:${Math.random() * -50}vh;
       width:${6 + Math.random() * 10}px;height:${10 + Math.random() * 14}px;
@@ -814,13 +1264,12 @@
     })();
   </script>
 
-  <!-- ═══════ HERO ═══════ -->
+  <!-- ════════════════════════ HERO ════════════════════════ -->
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="mandala-ring"></div>
     <div class="mandala-ring"></div>
     <div class="mandala-ring"></div>
-
     <div class="diya-row">
       <div class="diya">
         <div class="flame"></div>
@@ -843,12 +1292,11 @@
         <div class="diya-body"></div>
       </div>
     </div>
-
     <div class="om-symbol">ॐ</div>
     <h1 class="hero-title">हनुमान चालीसा</h1>
-    <p class="hero-sub">✦ Hanuman Chalisa ✦</p>
+    <p class="hero-sub"></p>
 
-    <!-- ════ HANUMAN JI IMAGE ════ -->
+    <!-- HANUMAN JI IMAGE -->
     <div class="deity-section">
       <div class="deity-aura">
         <div class="aura-ring"></div>
@@ -863,12 +1311,16 @@
           alt="श्री हनुमान जी" />
       </div>
       <!-- <p class="deity-caption">श्री हनुमान जी महाराज</p>
-      <div class="lotus-petals">🪷 🪷 🪷</div> -->
+    <div class="lotus-petals">🪷 🪷 🪷</div> -->
     </div>
-    <!-- ════════════════════════ -->
+
+    <button class="reading-mode-btn" id="heroReadBtn" aria-label="Start reading mode">
+      <span class="btn-icon">✨</span>
+      <span>Verse-by-Verse Reading</span>
+      <span class="btn-icon">✨</span>
+    </button>
 
     <!-- <p class="author-tag">— Goswami Tulsidas —</p> -->
-
     <div class="scroll-hint">
       <span>✦ पढ़ना शुरू करें ✦</span>
       <svg viewBox="0 0 24 24">
@@ -879,7 +1331,7 @@
 
   <div class="divider"></div>
 
-  <!-- ═══════ CONTENT ═══════ -->
+  <!-- ════════════════════════ MAIN ════════════════════════ -->
   <main>
     <div class="section-label">दोहा</div>
     <div class="doha-card verse-card">
@@ -890,173 +1342,170 @@
         <span class="line">बल बुद्धि बिद्या देहु मोहिं, हरहु कलेस बिकार।।</span>
       </div>
     </div>
-
     <div class="lotus-sep">❀ ॥ चौपाई ॥ ❀</div>
-    <div class="section-label">चौपाई</div>
-
+    <!-- <div class="section-label">चौपाई</div> -->
     <div class="chalisa-grid" id="chalisa">
-      <div class="verse-card"><span class="verse-number">१</span>
+      <div class="verse-card" data-verse="1"><span class="verse-number">१</span>
         <div class="verse-text"><span class="line">जय हनुमान ज्ञान गुन सागर।</span><span class="line">जय कपीस तिहुं लोक
             उजागर।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">२</span>
+      <div class="verse-card" data-verse="2"><span class="verse-number">२</span>
         <div class="verse-text"><span class="line">रामदूत अतुलित बल धामा।</span><span class="line">अंजनि-पुत्र पवनसुत
             नामा।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">३</span>
+      <div class="verse-card" data-verse="3"><span class="verse-number">३</span>
         <div class="verse-text"><span class="line">महाबीर बिक्रम बजरंगी।</span><span class="line">कुमति निवार सुमति के
             संगी।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">४</span>
+      <div class="verse-card" data-verse="4"><span class="verse-number">४</span>
         <div class="verse-text"><span class="line">कंचन बरन बिराज सुबेसा।</span><span class="line">कानन कुंडल कुंचित
             केसा।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">५</span>
+      <div class="verse-card" data-verse="5"><span class="verse-number">५</span>
         <div class="verse-text"><span class="line">हाथ बज्र औ ध्वजा बिराजै।</span><span class="line">कांधे मूंज जनेऊ
             साजै।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">६</span>
+      <div class="verse-card" data-verse="6"><span class="verse-number">६</span>
         <div class="verse-text"><span class="line">संकर सुवन केसरीनंदन।</span><span class="line">तेज प्रताप महा जग
             बन्दन।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">७</span>
+      <div class="verse-card" data-verse="7"><span class="verse-number">७</span>
         <div class="verse-text"><span class="line">विद्यावान गुनी अति चातुर।</span><span class="line">राम काज करिबे को
             आतुर।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">८</span>
+      <div class="verse-card" data-verse="8"><span class="verse-number">८</span>
         <div class="verse-text"><span class="line">प्रभु चरित्र सुनिबे को रसिया।</span><span class="line">राम लखन सीता
             मन बसिया।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">९</span>
+      <div class="verse-card" data-verse="9"><span class="verse-number">९</span>
         <div class="verse-text"><span class="line">सूक्ष्म रूप धरि सियहिं दिखावा।</span><span class="line">बिकट रूप धरि
             लंक जरावा।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">१०</span>
+      <div class="verse-card" data-verse="10"><span class="verse-number">१०</span>
         <div class="verse-text"><span class="line">भीम रूप धरि असुर संहारे।</span><span class="line">रामचंद्र के काज
             संवारे।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">११</span>
+      <div class="verse-card" data-verse="11"><span class="verse-number">११</span>
         <div class="verse-text"><span class="line">लाय सजीवन लखन जियाये।</span><span class="line">श्रीरघुबीर हरषि उर
             लाये।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">१२</span>
+      <div class="verse-card" data-verse="12"><span class="verse-number">१२</span>
         <div class="verse-text"><span class="line">रघुपति कीन्ही बहुत बड़ाई।</span><span class="line">तुम मम प्रिय भरतहि
             सम भाई।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">१३</span>
+      <div class="verse-card" data-verse="13"><span class="verse-number">१३</span>
         <div class="verse-text"><span class="line">सहस बदन तुम्हरो जस गावैं।</span><span class="line">अस कहि श्रीपति कंठ
             लगावैं।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">१४</span>
+      <div class="verse-card" data-verse="14"><span class="verse-number">१४</span>
         <div class="verse-text"><span class="line">सनकादिक ब्रह्मादि मुनीसा।</span><span class="line">नारद सारद सहित
             अहीसा।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">१५</span>
+      <div class="verse-card" data-verse="15"><span class="verse-number">१५</span>
         <div class="verse-text"><span class="line">जम कुबेर दिगपाल जहां ते।</span><span class="line">कबि कोबिद कहि सके
             कहां ते।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">१६</span>
+      <div class="verse-card" data-verse="16"><span class="verse-number">१६</span>
         <div class="verse-text"><span class="line">तुम उपकार सुग्रीवहिं कीन्हा।</span><span class="line">राम मिलाय राज
             पद दीन्हा।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">१७</span>
+      <div class="verse-card" data-verse="17"><span class="verse-number">१७</span>
         <div class="verse-text"><span class="line">तुम्हरो मंत्र बिभीषन माना।</span><span class="line">लंकेस्वर भए सब जग
             जाना।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">१८</span>
+      <div class="verse-card" data-verse="18"><span class="verse-number">१८</span>
         <div class="verse-text"><span class="line">जुग सहस्र जोजन पर भानू।</span><span class="line">लील्यो ताहि मधुर फल
             जानू।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">१९</span>
+      <div class="verse-card" data-verse="19"><span class="verse-number">१९</span>
         <div class="verse-text"><span class="line">प्रभु मुद्रिका मेलि मुख माहीं।</span><span class="line">जलधि लांघि
             गये अचरज नाहीं।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">२०</span>
+      <div class="verse-card" data-verse="20"><span class="verse-number">२०</span>
         <div class="verse-text"><span class="line">दुर्गम काज जगत के जेते।</span><span class="line">सुगम अनुग्रह तुम्हरे
             तेते।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">२१</span>
+      <div class="verse-card" data-verse="21"><span class="verse-number">२१</span>
         <div class="verse-text"><span class="line">राम दुआरे तुम रखवारे।</span><span class="line">होत न आज्ञा बिनु
             पैसारे।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">२२</span>
+      <div class="verse-card" data-verse="22"><span class="verse-number">२२</span>
         <div class="verse-text"><span class="line">सब सुख लहै तुम्हारी सरना।</span><span class="line">तुम रक्षक काहू को
             डर ना।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">२३</span>
+      <div class="verse-card" data-verse="23"><span class="verse-number">२३</span>
         <div class="verse-text"><span class="line">आपन तेज सम्हारो आपै।</span><span class="line">तीनों लोक हांक तें
             कांपै।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">२४</span>
+      <div class="verse-card" data-verse="24"><span class="verse-number">२४</span>
         <div class="verse-text"><span class="line">भूत पिसाच निकट नहिं आवै।</span><span class="line">महाबीर जब नाम
             सुनावै।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">२५</span>
+      <div class="verse-card" data-verse="25"><span class="verse-number">२५</span>
         <div class="verse-text"><span class="line">नासै रोग हरै सब पीरा।</span><span class="line">जपत निरंतर हनुमत
             बीरा।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">२६</span>
+      <div class="verse-card" data-verse="26"><span class="verse-number">२६</span>
         <div class="verse-text"><span class="line">संकट तें हनुमान छुड़ावै।</span><span class="line">मन क्रम बचन ध्यान
             जो लावै।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">२७</span>
+      <div class="verse-card" data-verse="27"><span class="verse-number">२७</span>
         <div class="verse-text"><span class="line">सब पर राम तपस्वी राजा।</span><span class="line">तिन के काज सकल तुम
             साजा।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">२८</span>
+      <div class="verse-card" data-verse="28"><span class="verse-number">२८</span>
         <div class="verse-text"><span class="line">और मनोरथ जो कोई लावै।</span><span class="line">सोइ अमित जीवन फल
             पावै।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">२९</span>
+      <div class="verse-card" data-verse="29"><span class="verse-number">२९</span>
         <div class="verse-text"><span class="line">चारों जुग परताप तुम्हारा।</span><span class="line">है परसिद्ध जगत
             उजियारा।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">३०</span>
+      <div class="verse-card" data-verse="30"><span class="verse-number">३०</span>
         <div class="verse-text"><span class="line">साधु-संत के तुम रखवारे।</span><span class="line">असुर निकंदन राम
             दुलारे।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">३१</span>
+      <div class="verse-card" data-verse="31"><span class="verse-number">३१</span>
         <div class="verse-text"><span class="line">अष्ट सिद्धि नौ निधि के दाता।</span><span class="line">अस बर दीन जानकी
             माता।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">३२</span>
+      <div class="verse-card" data-verse="32"><span class="verse-number">३२</span>
         <div class="verse-text"><span class="line">राम रसायन तुम्हरे पासा।</span><span class="line">सदा रहो रघुपति के
             दासा।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">३३</span>
+      <div class="verse-card" data-verse="33"><span class="verse-number">३३</span>
         <div class="verse-text"><span class="line">तुम्हरे भजन राम को पावै।</span><span class="line">जनम-जनम के दुख
             बिसरावै।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">३४</span>
+      <div class="verse-card" data-verse="34"><span class="verse-number">३४</span>
         <div class="verse-text"><span class="line">अन्तकाल रघुबर पुर जाई।</span><span class="line">जहां जन्म हरि-भक्त
             कहाई।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">३५</span>
+      <div class="verse-card" data-verse="35"><span class="verse-number">३५</span>
         <div class="verse-text"><span class="line">और देवता चित्त न धरई।</span><span class="line">हनुमत सेइ सर्ब सुख
             करई।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">३६</span>
+      <div class="verse-card" data-verse="36"><span class="verse-number">३६</span>
         <div class="verse-text"><span class="line">संकट कटै मिटै सब पीरा।</span><span class="line">जो सुमिरै हनुमत
             बलबीरा।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">३७</span>
+      <div class="verse-card" data-verse="37"><span class="verse-number">३७</span>
         <div class="verse-text"><span class="line">जै जै जै हनुमान गोसाईं।</span><span class="line">कृपा करहु गुरुदेव की
             नाईं।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">३८</span>
+      <div class="verse-card" data-verse="38"><span class="verse-number">३८</span>
         <div class="verse-text"><span class="line">जो सत बार पाठ कर कोई।</span><span class="line">छूटहि बंदि महा सुख
             होई।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">३९</span>
+      <div class="verse-card" data-verse="39"><span class="verse-number">३९</span>
         <div class="verse-text"><span class="line">जो यह पढ़ै हनुमान चालीसा।</span><span class="line">होय सिद्धि साखी
             गौरीसा।।</span></div>
       </div>
-      <div class="verse-card"><span class="verse-number">४०</span>
+      <div class="verse-card" data-verse="40"><span class="verse-number">४०</span>
         <div class="verse-text"><span class="line">तुलसीदास सदा हरि चेरा।</span><span class="line">कीजै नाथ हृदय मंह
             डेरा।।</span></div>
       </div>
     </div>
-
     <div class="lotus-sep" style="margin-top:3rem">❀ ॥ दोहा ॥ ❀</div>
     <div class="section-label">समापन दोहा</div>
     <div class="doha-card verse-card">
@@ -1071,12 +1520,93 @@
   <footer>
     <span class="footer-om">ॐ</span>
     <p class="footer-text">॥ जय श्री राम ॥ &nbsp;✦&nbsp; ॥ जय श्री हनुमान ॥</p>
+    <!-- <p class="footer-text" style="margin-top:.5rem;font-size:.7rem;opacity:.6">श्री तुलसीदास रचित</p> -->
   </footer>
 
-  <script>
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px' });
+  <!-- ════════════════════════ READING MODE OVERLAY ════════════════════════ -->
+  <div id="readingOverlay" role="dialog" aria-modal="true" aria-label="Reading Mode">
+    <div class="reading-header">
+      <div style="width:36px"></div>
+      <div class="reading-header-title">हनुमान चालीसा</div>
+      <div class="reading-close" id="readingClose" role="button" aria-label="Close">✕</div>
+    </div>
+    <div class="reading-progress-wrap">
+      <div class="reading-prog-bar">
+        <div class="reading-prog-fill" id="readingProgFill"></div>
+      </div>
+      <div class="reading-prog-label" id="readingProgLabel">1 / 42</div>
+    </div>
+    <div class="reading-stage" id="readingStage">
+      <div class="reading-verse-type" id="readingType">चौपाई</div>
+      <div class="reading-verse-num" id="readingNum">— १ —</div>
+      <div class="reading-text-wrap" id="readingTextWrap">
+        <!-- injected by JS -->
+      </div>
+    </div>
+    <div class="swipe-hint" id="swipeHint">← swipe or use arrows →</div>
+    <div class="reading-nav">
+      <button class="reading-nav-btn" id="prevBtn" aria-label="Previous verse">←</button>
+      <div class="reading-nav-center" id="readingNavLabel">जय हनुमान</div>
+      <button class="reading-nav-btn" id="nextBtn" aria-label="Next verse">→</button>
+    </div>
+  </div>
 
+  <script>
+    /* ════════════════════════════ DATA ════════════════════════════ */
+    const ALL_VERSES = [
+      { type: 'दोहा', num: '', lines: ['श्रीगुरु चरन सरोज रज, निज मनु मुकुरु सुधारि।', 'बरनऊं रघुबर बिमल जसु, जो दायकु फल चारि।।', '', 'बुद्धिहीन तनु जानिके, सुमिरौं पवन-कुमार।', 'बल बुद्धि बिद्या देहु मोहिं, हरहु कलेस बिकार।।'] },
+      { type: 'चौपाई', num: '— १ —', lines: ['जय हनुमान ज्ञान गुन सागर।', 'जय कपीस तिहुं लोक उजागर।।'] },
+      { type: 'चौपाई', num: '— २ —', lines: ['रामदूत अतुलित बल धामा।', 'अंजनि-पुत्र पवनसुत नामा।।'] },
+      { type: 'चौपाई', num: '— ३ —', lines: ['महाबीर बिक्रम बजरंगी।', 'कुमति निवार सुमति के संगी।।'] },
+      { type: 'चौपाई', num: '— ४ —', lines: ['कंचन बरन बिराज सुबेसा।', 'कानन कुंडल कुंचित केसा।।'] },
+      { type: 'चौपाई', num: '— ५ —', lines: ['हाथ बज्र औ ध्वजा बिराजै।', 'कांधे मूंज जनेऊ साजै।'] },
+      { type: 'चौपाई', num: '— ६ —', lines: ['संकर सुवन केसरीनंदन।', 'तेज प्रताप महा जग बन्दन।।'] },
+      { type: 'चौपाई', num: '— ७ —', lines: ['विद्यावान गुनी अति चातुर।', 'राम काज करिबे को आतुर।।'] },
+      { type: 'चौपाई', num: '— ८ —', lines: ['प्रभु चरित्र सुनिबे को रसिया।', 'राम लखन सीता मन बसिया।।'] },
+      { type: 'चौपाई', num: '— ९ —', lines: ['सूक्ष्म रूप धरि सियहिं दिखावा।', 'बिकट रूप धरि लंक जरावा।।'] },
+      { type: 'चौपाई', num: '— १० —', lines: ['भीम रूप धरि असुर संहारे।', 'रामचंद्र के काज संवारे।।'] },
+      { type: 'चौपाई', num: '— ११ —', lines: ['लाय सजीवन लखन जियाये।', 'श्रीरघुबीर हरषि उर लाये।।'] },
+      { type: 'चौपाई', num: '— १२ —', lines: ['रघुपति कीन्ही बहुत बड़ाई।', 'तुम मम प्रिय भरतहि सम भाई।।'] },
+      { type: 'चौपाई', num: '— १३ —', lines: ['सहस बदन तुम्हरो जस गावैं।', 'अस कहि श्रीपति कंठ लगावैं।।'] },
+      { type: 'चौपाई', num: '— १४ —', lines: ['सनकादिक ब्रह्मादि मुनीसा।', 'नारद सारद सहित अहीसा।।'] },
+      { type: 'चौपाई', num: '— १५ —', lines: ['जम कुबेर दिगपाल जहां ते।', 'कबि कोबिद कहि सके कहां ते।।'] },
+      { type: 'चौपाई', num: '— १६ —', lines: ['तुम उपकार सुग्रीवहिं कीन्हा।', 'राम मिलाय राज पद दीन्हा।।'] },
+      { type: 'चौपाई', num: '— १७ —', lines: ['तुम्हरो मंत्र बिभीषन माना।', 'लंकेस्वर भए सब जग जाना।।'] },
+      { type: 'चौपाई', num: '— १८ —', lines: ['जुग सहस्र जोजन पर भानू।', 'लील्यो ताहि मधुर फल जानू।।'] },
+      { type: 'चौपाई', num: '— १९ —', lines: ['प्रभु मुद्रिका मेलि मुख माहीं।', 'जलधि लांघि गये अचरज नाहीं।।'] },
+      { type: 'चौपाई', num: '— २० —', lines: ['दुर्गम काज जगत के जेते।', 'सुगम अनुग्रह तुम्हरे तेते।।'] },
+      { type: 'चौपाई', num: '— २१ —', lines: ['राम दुआरे तुम रखवारे।', 'होत न आज्ञा बिनु पैसारे।।'] },
+      { type: 'चौपाई', num: '— २२ —', lines: ['सब सुख लहै तुम्हारी सरना।', 'तुम रक्षक काहू को डर ना।।'] },
+      { type: 'चौपाई', num: '— २३ —', lines: ['आपन तेज सम्हारो आपै।', 'तीनों लोक हांक तें कांपै।।'] },
+      { type: 'चौपाई', num: '— २४ —', lines: ['भूत पिसाच निकट नहिं आवै।', 'महाबीर जब नाम सुनावै।।'] },
+      { type: 'चौपाई', num: '— २५ —', lines: ['नासै रोग हरै सब पीरा।', 'जपत निरंतर हनुमत बीरा।।'] },
+      { type: 'चौपाई', num: '— २६ —', lines: ['संकट तें हनुमान छुड़ावै।', 'मन क्रम बचन ध्यान जो लावै।।'] },
+      { type: 'चौपाई', num: '— २७ —', lines: ['सब पर राम तपस्वी राजा।', 'तिन के काज सकल तुम साजा।'] },
+      { type: 'चौपाई', num: '— २८ —', lines: ['और मनोरथ जो कोई लावै।', 'सोइ अमित जीवन फल पावै।।'] },
+      { type: 'चौपाई', num: '— २९ —', lines: ['चारों जुग परताप तुम्हारा।', 'है परसिद्ध जगत उजियारा।।'] },
+      { type: 'चौपाई', num: '— ३० —', lines: ['साधु-संत के तुम रखवारे।', 'असुर निकंदन राम दुलारे।।'] },
+      { type: 'चौपाई', num: '— ३१ —', lines: ['अष्ट सिद्धि नौ निधि के दाता।', 'अस बर दीन जानकी माता।।'] },
+      { type: 'चौपाई', num: '— ३२ —', lines: ['राम रसायन तुम्हरे पासा।', 'सदा रहो रघुपति के दासा।।'] },
+      { type: 'चौपाई', num: '— ३३ —', lines: ['तुम्हरे भजन राम को पावै।', 'जनम-जनम के दुख बिसरावै।।'] },
+      { type: 'चौपाई', num: '— ३४ —', lines: ['अन्तकाल रघुबर पुर जाई।', 'जहां जन्म हरि-भक्त कहाई।।'] },
+      { type: 'चौपाई', num: '— ३५ —', lines: ['और देवता चित्त न धरई।', 'हनुमत सेइ सर्ब सुख करई।।'] },
+      { type: 'चौपाई', num: '— ३६ —', lines: ['संकट कटै मिटै सब पीरा।', 'जो सुमिरै हनुमत बलबीरा।।'] },
+      { type: 'चौपाई', num: '— ३७ —', lines: ['जै जै जै हनुमान गोसाईं।', 'कृपा करहु गुरुदेव की नाईं।।'] },
+      { type: 'चौपाई', num: '— ३८ —', lines: ['जो सत बार पाठ कर कोई।', 'छूटहि बंदि महा सुख होई।।'] },
+      { type: 'चौपाई', num: '— ३९ —', lines: ['जो यह पढ़ै हनुमान चालीसा।', 'होय सिद्धि साखी गौरीसा।।'] },
+      { type: 'चौपाई', num: '— ४० —', lines: ['तुलसीदास सदा हरि चेरा।', 'कीजै नाथ हृदय मंह डेरा।।'] },
+      { type: 'दोहा', num: '', lines: ['पवन तनय संकट हरन, मंगल मूरति रूप।', 'राम लखन सीता सहित, हृदय बसहु सुर भूप।।'] },
+    ];
+    const TOTAL = ALL_VERSES.length;
+
+    /* ════════════════════════════ CURSOR ════════════════════════════ */
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    /* ════════════════════════════ PARTICLES ════════════════════════════ */
     const canvas = document.getElementById('particles');
     const ctx = canvas.getContext('2d');
     let W, H, particles = [];
@@ -1091,26 +1621,189 @@
       }
       update() {
         this.x += this.vx; this.y += this.vy;
-        if (this.growing) { this.a += .01; if (this.a >= this.maxA) this.growing = false } else { this.a -= .005 }
+        if (this.growing) { this.a += .01; if (this.a >= this.maxA) this.growing = false } else this.a -= .005;
         if (this.a <= 0 || this.y < -10) this.reset()
       }
       draw() {
         ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${this.hue[0]},${this.hue[1]},${this.hue[2]},${this.a})`; ctx.fill()
+        ctx.fillStyle = `rgba(${this.hue},${this.a})`; ctx.fill()
       }
     }
-    for (let i = 0; i < 120; i++)particles.push(new Particle());
+    for (let i = 0; i < 120; i++) particles.push(new Particle());
     function animLoop() { ctx.clearRect(0, 0, W, H); particles.forEach(p => { p.update(); p.draw() }); requestAnimationFrame(animLoop) }
     animLoop();
 
+    /* ════════════════════════════ SCROLL PROGRESS ════════════════════════════ */
+    const progressBar = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+      progressBar.style.width = Math.min(pct, 100) + '%';
+    }, { passive: true });
+
+    /* ════════════════════════════ SCROLL REVEAL ════════════════════════════ */
     const cards = document.querySelectorAll('.verse-card');
     const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) } })
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) }
+      });
     }, { threshold: .15 });
-    cards.forEach((card, i) => { card.style.transitionDelay = (i % 3) * 80 + 'ms'; observer.observe(card) });
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', () => { card.style.background = 'linear-gradient(145deg,rgba(40,15,0,.85) 0%,rgba(100,20,0,.6) 100%)' });
-      card.addEventListener('mouseleave', () => { card.style.background = '' });
+    cards.forEach((c, i) => { c.style.transitionDelay = (i % 3) * 80 + 'ms'; observer.observe(c) });
+    cards.forEach(c => {
+      c.addEventListener('mouseenter', () => { c.style.background = 'linear-gradient(145deg,rgba(40,15,0,.85) 0%,rgba(100,20,0,.6) 100%)' });
+      c.addEventListener('mouseleave', () => { c.style.background = '' });
+    });
+
+    /* ════════════════════════════ THEME TOGGLE ════════════════════════════ */
+    const html = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    const metaColor = document.getElementById('themeMetaColor');
+    let isDark = true;
+
+    function applyTheme(dark) {
+      isDark = dark;
+      html.setAttribute('data-theme', dark ? 'night' : 'day');
+      themeBtn.textContent = dark ? '🌙' : '☀️';
+      metaColor.content = dark ? '#1A0800' : '#FF6B00';
+      localStorage.setItem('hc-theme', dark ? 'night' : 'day');
+    }
+
+    themeBtn.addEventListener('click', () => applyTheme(!isDark));
+
+    // Restore saved theme
+    const saved = localStorage.getItem('hc-theme');
+    if (saved === 'day') applyTheme(false);
+
+    /* ════════════════════════════ READING MODE ════════════════════════════ */
+    const overlay = document.getElementById('readingOverlay');
+    const stageEl = document.getElementById('readingStage');
+    const typeEl = document.getElementById('readingType');
+    const numEl = document.getElementById('readingNum');
+    const textWrap = document.getElementById('readingTextWrap');
+    const progFill = document.getElementById('readingProgFill');
+    const progLabel = document.getElementById('readingProgLabel');
+    const navLabel = document.getElementById('readingNavLabel');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentIdx = 0;
+
+    function renderVerse(idx, dir = 0) {
+      const v = ALL_VERSES[idx];
+      typeEl.textContent = v.type;
+      numEl.textContent = v.num;
+      navLabel.textContent = `${idx + 1} / ${TOTAL}`;
+      progFill.style.width = ((idx + 1) / TOTAL * 100) + '%';
+      progLabel.textContent = `${idx + 1} / ${TOTAL}`;
+      prevBtn.disabled = idx === 0;
+      nextBtn.disabled = idx === TOTAL - 1;
+
+      // Build text HTML
+      let html = '';
+      v.lines.forEach(line => {
+        if (line === '') html += '<span class="reading-sep">· · ·</span>';
+        else html += `<span class="reading-line">${line}</span>`;
+      });
+      textWrap.style.animation = 'none';
+      textWrap.offsetHeight; // force reflow
+      textWrap.innerHTML = html;
+      textWrap.style.animation = 'reading-in .4s cubic-bezier(.25,.8,.25,1) both';
+    }
+
+    function openReading(startIdx = 0) {
+      currentIdx = startIdx;
+      renderVerse(currentIdx);
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeReading() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('heroReadBtn').addEventListener('click', () => openReading(0));
+    document.getElementById('readingFab').addEventListener('click', () => openReading(currentIdx));
+    document.getElementById('readingClose').addEventListener('click', closeReading);
+
+    prevBtn.addEventListener('click', () => { if (currentIdx > 0) { currentIdx--; renderVerse(currentIdx) } });
+    nextBtn.addEventListener('click', () => { if (currentIdx < TOTAL - 1) { currentIdx++; renderVerse(currentIdx) } });
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextBtn.click();
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevBtn.click();
+      if (e.key === 'Escape') closeReading();
+    });
+
+    // Touch swipe
+    let touchStartX = 0, touchStartY = 0;
+    overlay.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY }, { passive: true });
+    overlay.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        if (dx < 0) nextBtn.click(); else prevBtn.click();
+        // Hide swipe hint after first use
+        document.getElementById('swipeHint').style.opacity = '0';
+      }
+    }, { passive: true });
+
+    // Click on verse cards to open reading mode at that verse
+    document.querySelectorAll('.verse-card[data-verse]').forEach(card => {
+      card.addEventListener('click', () => {
+        const v = parseInt(card.dataset.verse);
+        openReading(v); // verse 1 = index 1 in ALL_VERSES
+      });
+      card.style.cursor = 'pointer';
+      card.title = 'क्लिक करें — Reading Mode';
+    });
+
+    /* ════════════════════════════ PWA ════════════════════════════ */
+    // Inline manifest via blob
+    const manifest = {
+      name: 'हनुमान चालीसा', short_name: 'Chalisa',
+      description: 'Hanuman Chalisa — Beautiful devotional web app',
+      start_url: '.', display: 'standalone',
+      background_color: '#1A0800', theme_color: '#FF6B00',
+      orientation: 'portrait',
+      icons: [
+        { src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="80" fill="%23FF6B00"/><text x="256" y="340" text-anchor="middle" font-size="300" fill="%23FFD700" font-family="serif">ॐ</text></svg>', sizes: '512x512', type: 'image/svg+xml', purpose: 'any maskable' },
+      ]
+    };
+    const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+    const mUrl = URL.createObjectURL(blob);
+    const mLink = document.createElement('link');
+    mLink.rel = 'manifest'; mLink.href = mUrl;
+    document.head.appendChild(mLink);
+
+    // Service Worker for offline
+    const swCode = `
+const CACHE='chalisa-v1';
+const URLS=['/'];
+self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(URLS))));
+self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
+`;
+    try {
+      const swBlob = new Blob([swCode], { type: 'application/javascript' });
+      const swUrl = URL.createObjectURL(swBlob);
+      navigator.serviceWorker && navigator.serviceWorker.register(swUrl);
+    } catch (e) { }
+
+    // Install prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault(); deferredPrompt = e;
+      setTimeout(() => document.getElementById('installBanner').classList.add('show'), 3000);
+    });
+    document.getElementById('installBtn').addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      document.getElementById('installBanner').classList.remove('show');
+    });
+    document.getElementById('dismissInstall').addEventListener('click', () => {
+      document.getElementById('installBanner').classList.remove('show');
     });
   </script>
 </body>
