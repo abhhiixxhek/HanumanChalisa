@@ -9,12 +9,11 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="हनुमान चालीसा" />
   <meta name="description" content="श्री हनुमान चालीसा — Goswami Tulsidas · Beautiful animated devotional webpage" />
-  <title>हनुमान चालीसा</title>
+  <title>हनुमान चालीसा — Hanuman Chalisa</title>
   <link
-    href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Cinzel+Decorative:wght@400;700;900&family=Rozha+One&family=Yatra+One&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Cinzel+Decorative:wght@400;700;900&family=Rozha+One&family=Yatra+One&family=Lora:ital@0;1&display=swap"
     rel="stylesheet" />
   <style>
-    /* ─── THEME VARIABLES ─── */
     :root {
       --saffron: #FF6B00;
       --deep-saffron: #E85D00;
@@ -22,10 +21,9 @@
       --gold-light: #FFE87C;
       --crimson: #A50000;
       --maroon: #6B0F1A;
-      --lotus-pink: #FF9EAF;
+      --lotus-pink: #FF9EAF
     }
 
-    /* NIGHT THEME */
     [data-theme="night"] {
       --bg: #1A0A00;
       --bg2: #0D0400;
@@ -37,7 +35,7 @@
       --doha-bg1: rgba(107, 15, 26, .55);
       --doha-bg2: rgba(165, 0, 0, .35);
       --text: rgb(255, 248, 237);
-      --text-dim: rgba(255, 248, 237, .7);
+      --text-dim: rgba(255, 248, 237, .65);
       --hero-rad1: rgba(255, 107, 0, .55);
       --hero-rad2: rgba(165, 0, 0, .4);
       --hero-rad3: rgba(107, 15, 26, .5);
@@ -45,9 +43,11 @@
       --meta-color: #1A0800;
       --fab-bg: rgba(26, 8, 0, .9);
       --fab-border: rgba(255, 215, 0, .25);
+      --meaning-bg: rgba(255, 215, 0, .05);
+      --meaning-border: rgba(255, 215, 0, .15);
+      --meaning-text: rgba(255, 248, 237, .78)
     }
 
-    /* DAY THEME */
     [data-theme="day"] {
       --bg: #FFF3E0;
       --bg2: #FFF8ED;
@@ -67,6 +67,9 @@
       --meta-color: #FF6B00;
       --fab-bg: rgba(255, 248, 237, .95);
       --fab-border: rgba(180, 100, 0, .3);
+      --meaning-bg: rgba(180, 80, 0, .06);
+      --meaning-border: rgba(180, 80, 0, .2);
+      --meaning-text: rgba(60, 20, 0, .75)
     }
 
     *,
@@ -87,10 +90,9 @@
       font-family: 'Tiro Devanagari Hindi', serif;
       overflow-x: hidden;
       cursor: none;
-      transition: background .5s ease, color .5s ease
+      transition: background .5s, color .5s
     }
 
-    /* ─── CURSOR (desktop only) ─── */
     #cursor {
       position: fixed;
       width: 22px;
@@ -113,7 +115,6 @@
       }
     }
 
-    /* ─── PARTICLES ─── */
     #particles {
       position: fixed;
       inset: 0;
@@ -124,10 +125,10 @@
     }
 
     [data-theme="day"] #particles {
-      opacity: .35
+      opacity: .3
     }
 
-    /* ─── FAB STRIP (top-right controls) ─── */
+    /* FAB */
     .fab-strip {
       position: fixed;
       top: env(safe-area-inset-top, 1rem);
@@ -136,7 +137,7 @@
       flex-direction: column;
       gap: .6rem;
       z-index: 200;
-      margin-top: 1rem;
+      margin-top: 1rem
     }
 
     .fab {
@@ -154,7 +155,7 @@
       box-shadow: 0 2px 12px rgba(0, 0, 0, .3);
       transition: transform .2s, box-shadow .2s, background .3s;
       -webkit-tap-highlight-color: transparent;
-      user-select: none;
+      user-select: none
     }
 
     .fab:hover {
@@ -166,7 +167,7 @@
       transform: scale(.95)
     }
 
-    /* ─── INSTALL BANNER ─── */
+    /* INSTALL BANNER */
     #installBanner {
       position: fixed;
       bottom: 1rem;
@@ -186,7 +187,7 @@
       white-space: nowrap;
       font-family: 'Cinzel Decorative', cursive;
       font-size: .75rem;
-      color: var(--gold);
+      color: var(--gold)
     }
 
     #installBanner.show {
@@ -216,7 +217,7 @@
       font-size: .85rem
     }
 
-    /* ─── HERO ─── */
+    /* HERO */
     .hero {
       position: relative;
       min-height: 100svh;
@@ -235,11 +236,7 @@
       inset: 0;
       z-index: -1;
       transition: background .5s;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 0%, var(--hero-rad1) 0%, transparent 65%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, var(--hero-rad2) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 20% 90%, var(--hero-rad3) 0%, transparent 60%),
-        linear-gradient(180deg, var(--bg2) 0%, var(--bg) 50%, var(--bg3) 100%)
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--hero-rad1) 0%, transparent 65%), radial-gradient(ellipse 60% 40% at 80% 80%, var(--hero-rad2) 0%, transparent 60%), radial-gradient(ellipse 50% 50% at 20% 90%, var(--hero-rad3) 0%, transparent 60%), linear-gradient(180deg, var(--bg2) 0%, var(--bg) 50%, var(--bg3) 100%)
     }
 
     .mandala-ring {
@@ -276,7 +273,6 @@
       }
     }
 
-    /* ─── DIYA ─── */
     .diya-row {
       display: flex;
       gap: 2rem;
@@ -355,11 +351,6 @@
       }
     }
 
-    [data-theme="day"] .flame {
-      filter: blur(.5px) drop-shadow(0 0 12px #FF8C00)
-    }
-
-    /* ─── OM / TITLE ─── */
     .om-symbol {
       font-size: 4.5rem;
       line-height: 1;
@@ -382,10 +373,6 @@
         text-shadow: 0 0 70px rgba(255, 215, 0, 1), 0 0 120px rgba(255, 107, 0, .7);
         transform: scale(1.05)
       }
-    }
-
-    [data-theme="day"] .om-symbol {
-      text-shadow: 0 0 30px rgba(200, 100, 0, .5), 0 2px 0 rgba(0, 0, 0, .08)
     }
 
     .hero-title {
@@ -434,7 +421,7 @@
       color: rgba(160, 60, 0, .7)
     }
 
-    /* ─── DEITY ─── */
+    /* DEITY */
     .deity-section {
       position: relative;
       display: flex;
@@ -542,8 +529,7 @@
       border-radius: 50% 50% 40% 40%/55% 55% 45% 45%;
       overflow: hidden;
       border: 2px solid rgba(255, 215, 0, .35);
-      box-shadow: 0 0 0 4px rgba(255, 107, 0, .12), 0 0 0 8px rgba(255, 215, 0, .08),
-        0 0 50px rgba(255, 200, 50, .25), 0 0 100px rgba(255, 107, 0, .15), inset 0 0 30px rgba(0, 0, 0, .4);
+      box-shadow: 0 0 0 4px rgba(255, 107, 0, .12), 0 0 0 8px rgba(255, 215, 0, .08), 0 0 50px rgba(255, 200, 50, .25), 0 0 100px rgba(255, 107, 0, .15), inset 0 0 30px rgba(0, 0, 0, .4);
       animation: deity-float 5s ease-in-out infinite
     }
 
@@ -551,13 +537,11 @@
 
       0%,
       100% {
-        transform: translateY(0);
-        box-shadow: 0 0 0 4px rgba(255, 107, 0, .12), 0 0 0 8px rgba(255, 215, 0, .08), 0 0 50px rgba(255, 200, 50, .25), 0 0 100px rgba(255, 107, 0, .15), inset 0 0 30px rgba(0, 0, 0, .4)
+        transform: translateY(0)
       }
 
       50% {
-        transform: translateY(-12px);
-        box-shadow: 0 12px 0 4px rgba(255, 107, 0, .08), 0 12px 0 8px rgba(255, 215, 0, .05), 0 12px 70px rgba(255, 200, 50, .35), 0 12px 130px rgba(255, 107, 0, .2), inset 0 0 30px rgba(0, 0, 0, .4)
+        transform: translateY(-12px)
       }
     }
 
@@ -608,7 +592,6 @@
       color: rgba(255, 107, 0, .5)
     }
 
-    /* ─── READING MODE BUTTON ─── */
     .reading-mode-btn {
       position: relative;
       z-index: 3;
@@ -628,22 +611,16 @@
       cursor: pointer;
       transition: all .3s;
       -webkit-tap-highlight-color: transparent;
-      animation: fadeInUp 1s ease both 1.2s;
+      animation: fadeInUp 1s ease both 1.2s
     }
 
-    .reading-mode-btn:hover,
-    .reading-mode-btn:active {
+    .reading-mode-btn:hover {
       background: rgba(255, 107, 0, .25);
       border-color: var(--gold);
       box-shadow: 0 0 20px rgba(255, 215, 0, .2);
       transform: scale(1.04)
     }
 
-    .reading-mode-btn .btn-icon {
-      font-size: 1.1rem
-    }
-
-    /* ─── SCROLL HINT ─── */
     .scroll-hint {
       position: absolute;
       bottom: 1.5rem;
@@ -698,17 +675,7 @@
       }
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0
-      }
-
-      to {
-        opacity: 1
-      }
-    }
-
-    /* ─── DIVIDER ─── */
+    /* DIVIDER */
     .divider {
       width: 100%;
       height: 3px;
@@ -735,7 +702,7 @@
       }
     }
 
-    /* ─── MAIN ─── */
+    /* MAIN */
     main {
       position: relative;
       z-index: 1;
@@ -761,6 +728,80 @@
       color: var(--gold)
     }
 
+    .chalisa-grid {
+      display: grid;
+      gap: 1.5rem
+    }
+
+    .lotus-sep {
+      text-align: center;
+      margin: 2.5rem 0 1rem;
+      font-size: 1.6rem;
+      letter-spacing: .3rem;
+      color: rgba(255, 215, 0, .35)
+    }
+
+    /* VERSE CARD */
+    .verse-card {
+      background: linear-gradient(145deg, var(--card-bg) 0%, var(--card-bg2) 100%);
+      border: 1px solid var(--card-border);
+      border-left: 3px solid var(--card-border-left);
+      border-radius: 10px;
+      padding: 1.5rem 1.8rem 1.2rem;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease, box-shadow .3s, border-color .3s, background .5s
+    }
+
+    .verse-card.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .verse-card:hover {
+      box-shadow: 0 0 25px rgba(255, 107, 0, .15), 0 4px 20px rgba(0, 0, 0, .15);
+      border-left-color: var(--gold);
+      border-color: rgba(255, 215, 0, .3)
+    }
+
+    .verse-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 0% 50%, rgba(255, 107, 0, .04), transparent 60%);
+      pointer-events: none
+    }
+
+    .verse-number {
+      position: absolute;
+      top: .8rem;
+      right: 3.4rem;
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 107, 0, .12);
+      border: 1px solid rgba(255, 107, 0, .25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .65rem;
+      font-family: 'Cinzel Decorative', cursive;
+      color: var(--saffron)
+    }
+
+    .verse-text {
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      line-height: 2.2;
+      color: var(--text)
+    }
+
+    .verse-text .line {
+      display: block
+    }
+
+    /* DOHA CARD */
     .doha-card {
       background: linear-gradient(135deg, var(--doha-bg1) 0%, var(--doha-bg2) 50%, var(--doha-bg1) 100%);
       border: 1px solid rgba(255, 215, 0, .25);
@@ -769,7 +810,7 @@
       margin-bottom: 2rem;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 0 40px rgba(255, 107, 0, .1), inset 0 0 60px rgba(0, 0, 0, .15);
+      box-shadow: 0 0 40px rgba(255, 107, 0, .1), inset 0 0 60px rgba(0, 0, 0, .12);
       transition: background .5s
     }
 
@@ -796,87 +837,111 @@
       font-size: clamp(1.05rem, 2.2vw, 1.25rem);
       line-height: 2.1;
       text-align: center;
-      color: var(--text);
-      text-shadow: none
+      color: var(--text)
     }
 
     .doha-text .line {
       display: block
     }
 
-    .chalisa-grid {
-      display: grid;
-      gap: 1.5rem
-    }
-
-    .verse-card {
-      background: linear-gradient(145deg, var(--card-bg) 0%, var(--card-bg2) 100%);
-      border: 1px solid var(--card-border);
-      border-left: 3px solid var(--card-border-left);
-      border-radius: 8px;
-      padding: 1.6rem 2rem;
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity .6s ease, transform .6s ease, box-shadow .3s ease, border-color .3s, background .5s
-    }
-
-    .verse-card.visible {
-      opacity: 1;
-      transform: translateY(0)
-    }
-
-    .verse-card:hover {
-      box-shadow: 0 0 25px rgba(255, 107, 0, .15), 0 4px 20px rgba(0, 0, 0, .15);
-      border-left-color: var(--gold);
-      border-color: rgba(255, 215, 0, .3)
-    }
-
-    .verse-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 0% 50%, rgba(255, 107, 0, .04), transparent 60%);
-      pointer-events: none
-    }
-
-    .verse-number {
-      position: absolute;
-      top: .8rem;
-      right: .8rem;
-      width: 28px;
-      height: 28px;
-      background: rgba(255, 107, 0, .12);
-      border: 1px solid rgba(255, 107, 0, .25);
-      border-radius: 50%;
-      display: flex;
+    /* ═══════ MEANING TOGGLE ═══════ */
+    .meaning-btn {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      font-size: .65rem;
+      gap: .4rem;
+      margin-top: 1rem;
+      padding: .38rem .9rem;
+      border: 1px solid rgba(255, 215, 0, .22);
+      border-radius: 20px;
+      background: transparent;
+      cursor: pointer;
       font-family: 'Cinzel Decorative', cursive;
-      color: var(--saffron)
+      font-size: .68rem;
+      letter-spacing: .08em;
+      color: rgba(255, 215, 0, .6);
+      transition: all .25s;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+      z-index: 1;
     }
 
-    .verse-text {
-      font-size: clamp(1rem, 2vw, 1.18rem);
-      line-height: 2.2;
-      color: var(--text)
+    .meaning-btn:hover {
+      background: rgba(255, 215, 0, .08);
+      border-color: rgba(255, 215, 0, .45);
+      color: var(--gold)
     }
 
-    .verse-text .line {
-      display: block
+    .meaning-btn.active {
+      background: rgba(255, 215, 0, .1);
+      border-color: var(--gold);
+      color: var(--gold)
     }
 
-    .lotus-sep {
-      text-align: center;
-      margin: 2.5rem 0 1rem;
-      font-size: 1.6rem;
-      letter-spacing: .3rem;
-      color: rgba(255, 215, 0, .35)
+    [data-theme="day"] .meaning-btn {
+      border-color: rgba(160, 80, 0, .25);
+      color: rgba(120, 50, 0, .7)
     }
 
-    /* ─── PROGRESS BAR ─── */
+    [data-theme="day"] .meaning-btn:hover,
+    [data-theme="day"] .meaning-btn.active {
+      background: rgba(160, 80, 0, .08);
+      border-color: rgba(160, 80, 0, .5);
+      color: rgb(120, 50, 0)
+    }
+
+    .meaning-btn .btn-arrow {
+      display: inline-block;
+      transition: transform .3s;
+      font-style: normal;
+      font-size: .8rem
+    }
+
+    .meaning-btn.active .btn-arrow {
+      transform: rotate(180deg)
+    }
+
+    .meaning-box {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .45s cubic-bezier(.4, 0, .2, 1), opacity .35s ease, padding .35s ease;
+      opacity: 0;
+      padding: 0 0;
+    }
+
+    .meaning-box.open {
+      max-height: 300px;
+      opacity: 1;
+      padding: .9rem 0 .2rem;
+    }
+
+    .meaning-inner {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: clamp(.88rem, 1.8vw, 1rem);
+      line-height: 1.85;
+      color: var(--meaning-text);
+      border-left: 2px solid rgba(255, 215, 0, .25);
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    [data-theme="day"] .meaning-inner {
+      border-left-color: rgba(160, 80, 0, .3);
+      color: rgba(60, 20, 0, .72)
+    }
+
+    .meaning-inner::before {
+      content: '"';
+      font-family: 'Rozha One', serif;
+      font-size: 2rem;
+      font-style: normal;
+      color: rgba(255, 215, 0, .2);
+      line-height: 0;
+      vertical-align: -.4em;
+      margin-right: .2rem;
+    }
+
+    /* PROGRESS BAR */
     .progress-bar-wrap {
       position: fixed;
       top: 0;
@@ -893,7 +958,7 @@
       transition: width .1s linear
     }
 
-    /* ─── FOOTER ─── */
+    /* FOOTER */
     footer {
       position: relative;
       z-index: 1;
@@ -922,7 +987,7 @@
       color: rgba(160, 60, 0, .5)
     }
 
-    /* ─── FLOATING PETALS ─── */
+    /* PETALS */
     .petal {
       position: fixed;
       pointer-events: none;
@@ -946,7 +1011,7 @@
       }
     }
 
-    /* ─── READING MODE OVERLAY ─── */
+    /* ═══════ READING MODE ═══════ */
     #readingOverlay {
       position: fixed;
       inset: 0;
@@ -956,7 +1021,7 @@
       background: var(--bg);
       opacity: 0;
       pointer-events: none;
-      transition: opacity .35s ease;
+      transition: opacity .35s ease
     }
 
     #readingOverlay.open {
@@ -972,7 +1037,7 @@
       padding-top: max(1rem, env(safe-area-inset-top));
       border-bottom: 1px solid rgba(255, 215, 0, .12);
       background: var(--bg2);
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
     .reading-header-title {
@@ -1009,7 +1074,7 @@
       display: flex;
       align-items: center;
       gap: .8rem;
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
     .reading-prog-bar {
@@ -1042,9 +1107,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 2rem 2rem 1rem;
-      overflow: hidden;
-      position: relative;
+      padding: 1.5rem 1.8rem 1rem;
+      overflow-y: auto;
+      position: relative
     }
 
     .reading-verse-type {
@@ -1053,8 +1118,8 @@
       letter-spacing: .35em;
       color: var(--saffron);
       text-transform: uppercase;
-      margin-bottom: 1.2rem;
-      opacity: .8;
+      margin-bottom: .8rem;
+      opacity: .8
     }
 
     .reading-verse-num {
@@ -1062,14 +1127,14 @@
       font-size: .8rem;
       letter-spacing: .2em;
       color: rgba(255, 215, 0, .5);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem
     }
 
     .reading-text-wrap {
       max-width: 580px;
       width: 100%;
       text-align: center;
-      animation: reading-in .4s cubic-bezier(.25, .8, .25, 1) both;
+      animation: reading-in .4s cubic-bezier(.25, .8, .25, 1) both
     }
 
     @keyframes reading-in {
@@ -1086,19 +1151,98 @@
 
     .reading-line {
       display: block;
-      font-size: clamp(1.15rem, 3.5vw, 1.65rem);
+      font-size: clamp(1.1rem, 3.5vw, 1.55rem);
       line-height: 2.2;
       color: var(--text);
-      font-family: 'Tiro Devanagari Hindi', serif;
+      font-family: 'Tiro Devanagari Hindi', serif
     }
 
-    /* Ornamental separator between couplet lines */
     .reading-sep {
       display: block;
       font-size: 1.2rem;
       color: rgba(255, 215, 0, .3);
       margin: .4rem 0;
       letter-spacing: .3rem
+    }
+
+    /* Reading meaning */
+    .reading-meaning-wrap {
+      max-width: 540px;
+      width: 100%;
+      margin-top: 0;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height .45s cubic-bezier(.4, 0, .2, 1), opacity .35s ease, margin .3s;
+    }
+
+    .reading-meaning-wrap.open {
+      max-height: 250px;
+      opacity: 1;
+      margin-top: 1.2rem
+    }
+
+    .reading-meaning-text {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: clamp(.85rem, 2vw, .98rem);
+      line-height: 1.85;
+      color: var(--meaning-text);
+      text-align: center;
+      padding: .9rem 1.2rem;
+      background: var(--meaning-bg);
+      border: 1px solid var(--meaning-border);
+      border-radius: 10px;
+    }
+
+    /* Reading meaning toggle btn */
+    .reading-meaning-btn {
+      margin-top: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .5rem 1.3rem;
+      border: 1px solid rgba(255, 215, 0, .3);
+      border-radius: 30px;
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: .72rem;
+      letter-spacing: .1em;
+      color: rgba(255, 215, 0, .65);
+      transition: all .25s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .reading-meaning-btn:hover {
+      background: rgba(255, 215, 0, .08);
+      border-color: var(--gold);
+      color: var(--gold)
+    }
+
+    .reading-meaning-btn.active {
+      background: rgba(255, 215, 0, .1);
+      border-color: var(--gold);
+      color: var(--gold)
+    }
+
+    [data-theme="day"] .reading-meaning-btn {
+      border-color: rgba(160, 80, 0, .3);
+      color: rgba(120, 50, 0, .7)
+    }
+
+    [data-theme="day"] .reading-meaning-btn.active {
+      background: rgba(160, 80, 0, .1);
+      border-color: rgba(160, 80, 0, .6);
+      color: rgb(100, 40, 0)
+    }
+
+    .reading-meaning-btn .r-arrow {
+      transition: transform .3s
+    }
+
+    .reading-meaning-btn.active .r-arrow {
+      transform: rotate(180deg)
     }
 
     .reading-nav {
@@ -1108,7 +1252,7 @@
       gap: 1.2rem;
       padding: 1.2rem 1.4rem;
       padding-bottom: max(1.2rem, env(safe-area-inset-bottom));
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
     .reading-nav-btn {
@@ -1124,7 +1268,7 @@
       font-size: 1.4rem;
       color: var(--gold);
       transition: all .2s;
-      -webkit-tap-highlight-color: transparent;
+      -webkit-tap-highlight-color: transparent
     }
 
     .reading-nav-btn:hover,
@@ -1144,20 +1288,20 @@
       color: var(--gold);
       text-align: center;
       min-width: 100px;
-      letter-spacing: .05em;
+      letter-spacing: .05em
     }
 
-    /* Swipe hint */
     .swipe-hint {
       font-size: .7rem;
       letter-spacing: .15em;
       color: rgba(255, 215, 0, .3);
       text-align: center;
       padding: .5rem;
-      font-family: 'Cinzel Decorative', cursive
+      font-family: 'Cinzel Decorative', cursive;
+      transition: opacity .5s
     }
 
-    /* ─── SCROLLBAR ─── */
+    /* SCROLLBAR */
     ::-webkit-scrollbar {
       width: 5px
     }
@@ -1171,7 +1315,7 @@
       border-radius: 3px
     }
 
-    /* ─── RESPONSIVE ─── */
+    /* RESPONSIVE */
     @media(max-width:600px) {
       .hero-title {
         font-size: 1.6rem
@@ -1221,50 +1365,35 @@
       }
 
       .reading-line {
-        font-size: clamp(1.1rem, 4vw, 1.4rem)
+        font-size: clamp(1.05rem, 4vw, 1.3rem)
       }
     }
   </style>
 </head>
 
 <body>
-
   <div id="cursor"></div>
   <canvas id="particles"></canvas>
-
-  <!-- Progress bar -->
   <div class="progress-bar-wrap">
     <div class="progress-bar" id="scrollProgress"></div>
   </div>
 
-  <!-- FAB Controls -->
   <div class="fab-strip">
     <div class="fab" id="themeToggle" title="Toggle theme">🌙</div>
     <div class="fab" id="readingFab" title="Reading mode">📖</div>
   </div>
 
-  <!-- PWA Install Banner -->
   <div id="installBanner">
     <span>🪷 Add to Home Screen</span>
     <button id="installBtn">Install</button>
     <button class="dismiss" id="dismissInstall">✕</button>
   </div>
 
-  <!-- Petals -->
   <script>
-    (function () {
-      for (let i = 0; i < 18; i++) {
-        const p = document.createElement('div'); p.className = 'petal';
-        p.style.cssText = `left:${Math.random() * 100}vw;top:${Math.random() * -50}vh;
-      width:${6 + Math.random() * 10}px;height:${10 + Math.random() * 14}px;
-      animation-duration:${8 + Math.random() * 14}s;animation-delay:${Math.random() * 12}s;
-      opacity:${.4 + Math.random() * .5}`;
-        document.body.appendChild(p);
-      }
-    })();
+    (function () { for (let i = 0; i < 18; i++) { const p = document.createElement('div'); p.className = 'petal'; p.style.cssText = `left:${Math.random() * 100}vw;top:${Math.random() * -50}vh;width:${6 + Math.random() * 10}px;height:${10 + Math.random() * 14}px;animation-duration:${8 + Math.random() * 14}s;animation-delay:${Math.random() * 12}s;opacity:${.4 + Math.random() * .5}`; document.body.appendChild(p) } })();
   </script>
 
-  <!-- ════════════════════════ HERO ════════════════════════ -->
+  <!-- ═══ HERO ═══ -->
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="mandala-ring"></div>
@@ -1294,9 +1423,7 @@
     </div>
     <div class="om-symbol">ॐ</div>
     <h1 class="hero-title">हनुमान चालीसा</h1>
-    <p class="hero-sub"></p>
-
-    <!-- HANUMAN JI IMAGE -->
+    <p class="hero-sub">✦ Hanuman Chalisa ✦</p>
     <div class="deity-section">
       <div class="deity-aura">
         <div class="aura-ring"></div>
@@ -1311,15 +1438,11 @@
           alt="श्री हनुमान जी" />
       </div>
       <!-- <p class="deity-caption">श्री हनुमान जी महाराज</p>
-    <div class="lotus-petals">🪷 🪷 🪷</div> -->
+            <div class="lotus-petals">🪷 🪷 🪷</div> -->
     </div>
-
-    <button class="reading-mode-btn" id="heroReadBtn" aria-label="Start reading mode">
-      <span class="btn-icon">✨</span>
-      <span>Verse-by-Verse Reading</span>
-      <span class="btn-icon">✨</span>
+    <button class="reading-mode-btn" id="heroReadBtn">
+      <span>✨</span><span>Verse-by-Verse Reading</span><span>✨</span>
     </button>
-
     <!-- <p class="author-tag">— Goswami Tulsidas —</p> -->
     <div class="scroll-hint">
       <span>✦ पढ़ना शुरू करें ✦</span>
@@ -1331,187 +1454,362 @@
 
   <div class="divider"></div>
 
-  <!-- ════════════════════════ MAIN ════════════════════════ -->
+  <!-- ═══ MAIN ═══ -->
   <main>
     <div class="section-label">दोहा</div>
-    <div class="doha-card verse-card">
+
+    <!-- Opening Doha -->
+    <div class="doha-card verse-card" data-verse="0">
       <div class="doha-text">
         <span class="line">श्रीगुरु चरन सरोज रज, निज मनु मुकुरु सुधारि।</span>
         <span class="line">बरनऊं रघुबर बिमल जसु, जो दायकु फल चारि।।</span>
         <span class="line" style="margin-top:.8rem">बुद्धिहीन तनु जानिके, सुमिरौं पवन-कुमार।</span>
         <span class="line">बल बुद्धि बिद्या देहु मोहिं, हरहु कलेस बिकार।।</span>
       </div>
+      <button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤 Meaning</span><span
+          class="btn-arrow">▾</span></button>
+      <div class="meaning-box">
+        <div class="meaning-inner" id="m0"></div>
+      </div>
     </div>
+
     <div class="lotus-sep">❀ ॥ चौपाई ॥ ❀</div>
-    <!-- <div class="section-label">चौपाई</div> -->
+    <div class="section-label">Chaupai</div>
+
     <div class="chalisa-grid" id="chalisa">
       <div class="verse-card" data-verse="1"><span class="verse-number">१</span>
-        <div class="verse-text"><span class="line">जय हनुमान ज्ञान गुन सागर।</span><span class="line">जय कपीस तिहुं लोक
-            उजागर।।</span></div>
+        <div class="verse-text"><span class="line">जय हनुमान ज्ञान गुन सागर।</span><span class="line">जय कपीस
+            तिहुं लोक उजागर।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m1"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="2"><span class="verse-number">२</span>
-        <div class="verse-text"><span class="line">रामदूत अतुलित बल धामा।</span><span class="line">अंजनि-पुत्र पवनसुत
-            नामा।।</span></div>
+        <div class="verse-text"><span class="line">रामदूत अतुलित बल धामा।</span><span class="line">अंजनि-पुत्र
+            पवनसुत नामा।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m2"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="3"><span class="verse-number">३</span>
-        <div class="verse-text"><span class="line">महाबीर बिक्रम बजरंगी।</span><span class="line">कुमति निवार सुमति के
-            संगी।।</span></div>
+        <div class="verse-text"><span class="line">महाबीर बिक्रम बजरंगी।</span><span class="line">कुमति निवार
+            सुमति के संगी।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m3"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="4"><span class="verse-number">४</span>
-        <div class="verse-text"><span class="line">कंचन बरन बिराज सुबेसा।</span><span class="line">कानन कुंडल कुंचित
-            केसा।।</span></div>
+        <div class="verse-text"><span class="line">कंचन बरन बिराज सुबेसा।</span><span class="line">कानन कुंडल
+            कुंचित केसा।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m4"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="5"><span class="verse-number">५</span>
-        <div class="verse-text"><span class="line">हाथ बज्र औ ध्वजा बिराजै।</span><span class="line">कांधे मूंज जनेऊ
-            साजै।</span></div>
+        <div class="verse-text"><span class="line">हाथ बज्र औ ध्वजा बिराजै।</span><span class="line">कांधे मूंज
+            जनेऊ साजै।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m5"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="6"><span class="verse-number">६</span>
-        <div class="verse-text"><span class="line">संकर सुवन केसरीनंदन।</span><span class="line">तेज प्रताप महा जग
-            बन्दन।।</span></div>
+        <div class="verse-text"><span class="line">संकर सुवन केसरीनंदन।</span><span class="line">तेज प्रताप महा
+            जग बन्दन।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m6"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="7"><span class="verse-number">७</span>
-        <div class="verse-text"><span class="line">विद्यावान गुनी अति चातुर।</span><span class="line">राम काज करिबे को
-            आतुर।।</span></div>
+        <div class="verse-text"><span class="line">विद्यावान गुनी अति चातुर।</span><span class="line">राम काज
+            करिबे को आतुर।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m7"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="8"><span class="verse-number">८</span>
-        <div class="verse-text"><span class="line">प्रभु चरित्र सुनिबे को रसिया।</span><span class="line">राम लखन सीता
-            मन बसिया।।</span></div>
+        <div class="verse-text"><span class="line">प्रभु चरित्र सुनिबे को रसिया।</span><span class="line">राम
+            लखन सीता मन बसिया।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m8"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="9"><span class="verse-number">९</span>
-        <div class="verse-text"><span class="line">सूक्ष्म रूप धरि सियहिं दिखावा।</span><span class="line">बिकट रूप धरि
-            लंक जरावा।।</span></div>
+        <div class="verse-text"><span class="line">सूक्ष्म रूप धरि सियहिं दिखावा।</span><span class="line">बिकट
+            रूप धरि लंक जरावा।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m9"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="10"><span class="verse-number">१०</span>
-        <div class="verse-text"><span class="line">भीम रूप धरि असुर संहारे।</span><span class="line">रामचंद्र के काज
-            संवारे।।</span></div>
+        <div class="verse-text"><span class="line">भीम रूप धरि असुर संहारे।</span><span class="line">रामचंद्र के
+            काज संवारे।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m10"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="11"><span class="verse-number">११</span>
-        <div class="verse-text"><span class="line">लाय सजीवन लखन जियाये।</span><span class="line">श्रीरघुबीर हरषि उर
-            लाये।।</span></div>
+        <div class="verse-text"><span class="line">लाय सजीवन लखन जियाये।</span><span class="line">श्रीरघुबीर
+            हरषि उर लाये।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m11"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="12"><span class="verse-number">१२</span>
-        <div class="verse-text"><span class="line">रघुपति कीन्ही बहुत बड़ाई।</span><span class="line">तुम मम प्रिय भरतहि
-            सम भाई।।</span></div>
+        <div class="verse-text"><span class="line">रघुपति कीन्ही बहुत बड़ाई।</span><span class="line">तुम मम
+            प्रिय भरतहि सम भाई।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m12"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="13"><span class="verse-number">१३</span>
-        <div class="verse-text"><span class="line">सहस बदन तुम्हरो जस गावैं।</span><span class="line">अस कहि श्रीपति कंठ
-            लगावैं।।</span></div>
+        <div class="verse-text"><span class="line">सहस बदन तुम्हरो जस गावैं।</span><span class="line">अस कहि
+            श्रीपति कंठ लगावैं।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m13"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="14"><span class="verse-number">१४</span>
-        <div class="verse-text"><span class="line">सनकादिक ब्रह्मादि मुनीसा।</span><span class="line">नारद सारद सहित
-            अहीसा।।</span></div>
+        <div class="verse-text"><span class="line">सनकादिक ब्रह्मादि मुनीसा।</span><span class="line">नारद सारद
+            सहित अहीसा।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m14"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="15"><span class="verse-number">१५</span>
-        <div class="verse-text"><span class="line">जम कुबेर दिगपाल जहां ते।</span><span class="line">कबि कोबिद कहि सके
-            कहां ते।।</span></div>
+        <div class="verse-text"><span class="line">जम कुबेर दिगपाल जहां ते।</span><span class="line">कबि कोबिद
+            कहि सके कहां ते।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m15"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="16"><span class="verse-number">१६</span>
-        <div class="verse-text"><span class="line">तुम उपकार सुग्रीवहिं कीन्हा।</span><span class="line">राम मिलाय राज
-            पद दीन्हा।।</span></div>
+        <div class="verse-text"><span class="line">तुम उपकार सुग्रीवहिं कीन्हा।</span><span class="line">राम
+            मिलाय राज पद दीन्हा।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m16"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="17"><span class="verse-number">१७</span>
-        <div class="verse-text"><span class="line">तुम्हरो मंत्र बिभीषन माना।</span><span class="line">लंकेस्वर भए सब जग
-            जाना।।</span></div>
+        <div class="verse-text"><span class="line">तुम्हरो मंत्र बिभीषन माना।</span><span class="line">लंकेस्वर
+            भए सब जग जाना।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m17"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="18"><span class="verse-number">१८</span>
-        <div class="verse-text"><span class="line">जुग सहस्र जोजन पर भानू।</span><span class="line">लील्यो ताहि मधुर फल
-            जानू।।</span></div>
+        <div class="verse-text"><span class="line">जुग सहस्र जोजन पर भानू।</span><span class="line">लील्यो ताहि
+            मधुर फल जानू।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m18"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="19"><span class="verse-number">१९</span>
-        <div class="verse-text"><span class="line">प्रभु मुद्रिका मेलि मुख माहीं।</span><span class="line">जलधि लांघि
-            गये अचरज नाहीं।।</span></div>
+        <div class="verse-text"><span class="line">प्रभु मुद्रिका मेलि मुख माहीं।</span><span class="line">जलधि
+            लांघि गये अचरज नाहीं।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m19"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="20"><span class="verse-number">२०</span>
-        <div class="verse-text"><span class="line">दुर्गम काज जगत के जेते।</span><span class="line">सुगम अनुग्रह तुम्हरे
-            तेते।।</span></div>
+        <div class="verse-text"><span class="line">दुर्गम काज जगत के जेते।</span><span class="line">सुगम अनुग्रह
+            तुम्हरे तेते।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m20"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="21"><span class="verse-number">२१</span>
-        <div class="verse-text"><span class="line">राम दुआरे तुम रखवारे।</span><span class="line">होत न आज्ञा बिनु
-            पैसारे।।</span></div>
+        <div class="verse-text"><span class="line">राम दुआरे तुम रखवारे।</span><span class="line">होत न आज्ञा
+            बिनु पैसारे।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m21"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="22"><span class="verse-number">२२</span>
-        <div class="verse-text"><span class="line">सब सुख लहै तुम्हारी सरना।</span><span class="line">तुम रक्षक काहू को
-            डर ना।।</span></div>
+        <div class="verse-text"><span class="line">सब सुख लहै तुम्हारी सरना।</span><span class="line">तुम रक्षक
+            काहू को डर ना।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m22"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="23"><span class="verse-number">२३</span>
-        <div class="verse-text"><span class="line">आपन तेज सम्हारो आपै।</span><span class="line">तीनों लोक हांक तें
-            कांपै।।</span></div>
+        <div class="verse-text"><span class="line">आपन तेज सम्हारो आपै।</span><span class="line">तीनों लोक हांक
+            तें कांपै।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m23"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="24"><span class="verse-number">२४</span>
-        <div class="verse-text"><span class="line">भूत पिसाच निकट नहिं आवै।</span><span class="line">महाबीर जब नाम
-            सुनावै।।</span></div>
+        <div class="verse-text"><span class="line">भूत पिसाच निकट नहिं आवै।</span><span class="line">महाबीर जब
+            नाम सुनावै।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m24"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="25"><span class="verse-number">२५</span>
-        <div class="verse-text"><span class="line">नासै रोग हरै सब पीरा।</span><span class="line">जपत निरंतर हनुमत
-            बीरा।।</span></div>
+        <div class="verse-text"><span class="line">नासै रोग हरै सब पीरा।</span><span class="line">जपत निरंतर
+            हनुमत बीरा।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m25"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="26"><span class="verse-number">२६</span>
-        <div class="verse-text"><span class="line">संकट तें हनुमान छुड़ावै।</span><span class="line">मन क्रम बचन ध्यान
-            जो लावै।।</span></div>
+        <div class="verse-text"><span class="line">संकट तें हनुमान छुड़ावै।</span><span class="line">मन क्रम बचन
+            ध्यान जो लावै।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m26"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="27"><span class="verse-number">२७</span>
-        <div class="verse-text"><span class="line">सब पर राम तपस्वी राजा।</span><span class="line">तिन के काज सकल तुम
-            साजा।</span></div>
+        <div class="verse-text"><span class="line">सब पर राम तपस्वी राजा।</span><span class="line">तिन के काज
+            सकल तुम साजा।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m27"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="28"><span class="verse-number">२८</span>
-        <div class="verse-text"><span class="line">और मनोरथ जो कोई लावै।</span><span class="line">सोइ अमित जीवन फल
-            पावै।।</span></div>
+        <div class="verse-text"><span class="line">और मनोरथ जो कोई लावै।</span><span class="line">सोइ अमित जीवन
+            फल पावै।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m28"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="29"><span class="verse-number">२९</span>
-        <div class="verse-text"><span class="line">चारों जुग परताप तुम्हारा।</span><span class="line">है परसिद्ध जगत
-            उजियारा।।</span></div>
+        <div class="verse-text"><span class="line">चारों जुग परताप तुम्हारा।</span><span class="line">है परसिद्ध
+            जगत उजियारा।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m29"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="30"><span class="verse-number">३०</span>
-        <div class="verse-text"><span class="line">साधु-संत के तुम रखवारे।</span><span class="line">असुर निकंदन राम
-            दुलारे।।</span></div>
+        <div class="verse-text"><span class="line">साधु-संत के तुम रखवारे।</span><span class="line">असुर निकंदन
+            राम दुलारे।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m30"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="31"><span class="verse-number">३१</span>
-        <div class="verse-text"><span class="line">अष्ट सिद्धि नौ निधि के दाता।</span><span class="line">अस बर दीन जानकी
-            माता।।</span></div>
+        <div class="verse-text"><span class="line">अष्ट सिद्धि नौ निधि के दाता।</span><span class="line">अस बर
+            दीन जानकी माता।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m31"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="32"><span class="verse-number">३२</span>
-        <div class="verse-text"><span class="line">राम रसायन तुम्हरे पासा।</span><span class="line">सदा रहो रघुपति के
-            दासा।।</span></div>
+        <div class="verse-text"><span class="line">राम रसायन तुम्हरे पासा।</span><span class="line">सदा रहो
+            रघुपति के दासा।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m32"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="33"><span class="verse-number">३३</span>
-        <div class="verse-text"><span class="line">तुम्हरे भजन राम को पावै।</span><span class="line">जनम-जनम के दुख
-            बिसरावै।।</span></div>
+        <div class="verse-text"><span class="line">तुम्हरे भजन राम को पावै।</span><span class="line">जनम-जनम के
+            दुख बिसरावै।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m33"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="34"><span class="verse-number">३४</span>
-        <div class="verse-text"><span class="line">अन्तकाल रघुबर पुर जाई।</span><span class="line">जहां जन्म हरि-भक्त
-            कहाई।।</span></div>
+        <div class="verse-text"><span class="line">अन्तकाल रघुबर पुर जाई।</span><span class="line">जहां जन्म
+            हरि-भक्त कहाई।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m34"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="35"><span class="verse-number">३५</span>
-        <div class="verse-text"><span class="line">और देवता चित्त न धरई।</span><span class="line">हनुमत सेइ सर्ब सुख
-            करई।।</span></div>
+        <div class="verse-text"><span class="line">और देवता चित्त न धरई।</span><span class="line">हनुमत सेइ सर्ब
+            सुख करई।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m35"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="36"><span class="verse-number">३६</span>
-        <div class="verse-text"><span class="line">संकट कटै मिटै सब पीरा।</span><span class="line">जो सुमिरै हनुमत
-            बलबीरा।।</span></div>
+        <div class="verse-text"><span class="line">संकट कटै मिटै सब पीरा।</span><span class="line">जो सुमिरै
+            हनुमत बलबीरा।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m36"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="37"><span class="verse-number">३७</span>
-        <div class="verse-text"><span class="line">जै जै जै हनुमान गोसाईं।</span><span class="line">कृपा करहु गुरुदेव की
-            नाईं।।</span></div>
+        <div class="verse-text"><span class="line">जै जै जै हनुमान गोसाईं।</span><span class="line">कृपा करहु
+            गुरुदेव की नाईं।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m37"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="38"><span class="verse-number">३८</span>
-        <div class="verse-text"><span class="line">जो सत बार पाठ कर कोई।</span><span class="line">छूटहि बंदि महा सुख
-            होई।।</span></div>
+        <div class="verse-text"><span class="line">जो सत बार पाठ कर कोई।</span><span class="line">छूटहि बंदि महा
+            सुख होई।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m38"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="39"><span class="verse-number">३९</span>
-        <div class="verse-text"><span class="line">जो यह पढ़ै हनुमान चालीसा।</span><span class="line">होय सिद्धि साखी
-            गौरीसा।।</span></div>
+        <div class="verse-text"><span class="line">जो यह पढ़ै हनुमान चालीसा।</span><span class="line">होय सिद्धि
+            साखी गौरीसा।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m39"></div>
+        </div>
       </div>
       <div class="verse-card" data-verse="40"><span class="verse-number">४०</span>
-        <div class="verse-text"><span class="line">तुलसीदास सदा हरि चेरा।</span><span class="line">कीजै नाथ हृदय मंह
-            डेरा।।</span></div>
+        <div class="verse-text"><span class="line">तुलसीदास सदा हरि चेरा।</span><span class="line">कीजै नाथ हृदय
+            मंह डेरा।।</span></div><button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤
+            Meaning</span><span class="btn-arrow">▾</span></button>
+        <div class="meaning-box">
+          <div class="meaning-inner" id="m40"></div>
+        </div>
       </div>
     </div>
+
     <div class="lotus-sep" style="margin-top:3rem">❀ ॥ दोहा ॥ ❀</div>
     <div class="section-label">समापन दोहा</div>
-    <div class="doha-card verse-card">
+    <div class="doha-card verse-card" data-verse="41">
       <div class="doha-text">
         <span class="line">पवन तनय संकट हरन, मंगल मूरति रूप।</span>
         <span class="line">राम लखन सीता सहित, हृदय बसहु सुर भूप।।</span>
+      </div>
+      <button class="meaning-btn" onclick="toggleMeaning(this)"><span>🔤 Meaning</span><span
+          class="btn-arrow">▾</span></button>
+      <div class="meaning-box">
+        <div class="meaning-inner" id="m41"></div>
       </div>
     </div>
   </main>
@@ -1519,16 +1817,16 @@
   <div class="divider"></div>
   <footer>
     <span class="footer-om">ॐ</span>
-    <p class="footer-text">॥ जय श्री राम ॥ &nbsp;✦&nbsp; ॥ जय श्री हनुमान ॥</p>
-    <!-- <p class="footer-text" style="margin-top:.5rem;font-size:.7rem;opacity:.6">श्री तुलसीदास रचित</p> -->
+    <p class="footer-text">॥ जय श्री राम ॥ &nbsp;✦&nbsp; ॥ जय हनुमान ॥</p>
+    <p class="footer-text" style="margin-top:.5rem;font-size:.7rem;opacity:.6">श्री तुलसीदास रचित</p>
   </footer>
 
-  <!-- ════════════════════════ READING MODE OVERLAY ════════════════════════ -->
-  <div id="readingOverlay" role="dialog" aria-modal="true" aria-label="Reading Mode">
+  <!-- ═══ READING OVERLAY ═══ -->
+  <div id="readingOverlay" role="dialog" aria-modal="true">
     <div class="reading-header">
       <div style="width:36px"></div>
       <div class="reading-header-title">हनुमान चालीसा</div>
-      <div class="reading-close" id="readingClose" role="button" aria-label="Close">✕</div>
+      <div class="reading-close" id="readingClose">✕</div>
     </div>
     <div class="reading-progress-wrap">
       <div class="reading-prog-bar">
@@ -1539,155 +1837,132 @@
     <div class="reading-stage" id="readingStage">
       <div class="reading-verse-type" id="readingType">चौपाई</div>
       <div class="reading-verse-num" id="readingNum">— १ —</div>
-      <div class="reading-text-wrap" id="readingTextWrap">
-        <!-- injected by JS -->
+      <div class="reading-text-wrap" id="readingTextWrap"></div>
+      <button class="reading-meaning-btn" id="readingMeaningBtn">
+        <span>🔤 English Meaning</span><span class="r-arrow">▾</span>
+      </button>
+      <div class="reading-meaning-wrap" id="readingMeaningWrap">
+        <div class="reading-meaning-text" id="readingMeaningText"></div>
       </div>
     </div>
-    <div class="swipe-hint" id="swipeHint">← swipe or use arrows →</div>
+    <div class="swipe-hint" id="swipeHint">← swipe or use arrow keys →</div>
     <div class="reading-nav">
-      <button class="reading-nav-btn" id="prevBtn" aria-label="Previous verse">←</button>
+      <button class="reading-nav-btn" id="prevBtn">←</button>
       <div class="reading-nav-center" id="readingNavLabel">जय हनुमान</div>
-      <button class="reading-nav-btn" id="nextBtn" aria-label="Next verse">→</button>
+      <button class="reading-nav-btn" id="nextBtn">→</button>
     </div>
   </div>
 
   <script>
-    /* ════════════════════════════ DATA ════════════════════════════ */
+    /* ═══════════════════ DATA ═══════════════════ */
     const ALL_VERSES = [
-      { type: 'दोहा', num: '', lines: ['श्रीगुरु चरन सरोज रज, निज मनु मुकुरु सुधारि।', 'बरनऊं रघुबर बिमल जसु, जो दायकु फल चारि।।', '', 'बुद्धिहीन तनु जानिके, सुमिरौं पवन-कुमार।', 'बल बुद्धि बिद्या देहु मोहिं, हरहु कलेस बिकार।।'] },
-      { type: 'चौपाई', num: '— १ —', lines: ['जय हनुमान ज्ञान गुन सागर।', 'जय कपीस तिहुं लोक उजागर।।'] },
-      { type: 'चौपाई', num: '— २ —', lines: ['रामदूत अतुलित बल धामा।', 'अंजनि-पुत्र पवनसुत नामा।।'] },
-      { type: 'चौपाई', num: '— ३ —', lines: ['महाबीर बिक्रम बजरंगी।', 'कुमति निवार सुमति के संगी।।'] },
-      { type: 'चौपाई', num: '— ४ —', lines: ['कंचन बरन बिराज सुबेसा।', 'कानन कुंडल कुंचित केसा।।'] },
-      { type: 'चौपाई', num: '— ५ —', lines: ['हाथ बज्र औ ध्वजा बिराजै।', 'कांधे मूंज जनेऊ साजै।'] },
-      { type: 'चौपाई', num: '— ६ —', lines: ['संकर सुवन केसरीनंदन।', 'तेज प्रताप महा जग बन्दन।।'] },
-      { type: 'चौपाई', num: '— ७ —', lines: ['विद्यावान गुनी अति चातुर।', 'राम काज करिबे को आतुर।।'] },
-      { type: 'चौपाई', num: '— ८ —', lines: ['प्रभु चरित्र सुनिबे को रसिया।', 'राम लखन सीता मन बसिया।।'] },
-      { type: 'चौपाई', num: '— ९ —', lines: ['सूक्ष्म रूप धरि सियहिं दिखावा।', 'बिकट रूप धरि लंक जरावा।।'] },
-      { type: 'चौपाई', num: '— १० —', lines: ['भीम रूप धरि असुर संहारे।', 'रामचंद्र के काज संवारे।।'] },
-      { type: 'चौपाई', num: '— ११ —', lines: ['लाय सजीवन लखन जियाये।', 'श्रीरघुबीर हरषि उर लाये।।'] },
-      { type: 'चौपाई', num: '— १२ —', lines: ['रघुपति कीन्ही बहुत बड़ाई।', 'तुम मम प्रिय भरतहि सम भाई।।'] },
-      { type: 'चौपाई', num: '— १३ —', lines: ['सहस बदन तुम्हरो जस गावैं।', 'अस कहि श्रीपति कंठ लगावैं।।'] },
-      { type: 'चौपाई', num: '— १४ —', lines: ['सनकादिक ब्रह्मादि मुनीसा।', 'नारद सारद सहित अहीसा।।'] },
-      { type: 'चौपाई', num: '— १५ —', lines: ['जम कुबेर दिगपाल जहां ते।', 'कबि कोबिद कहि सके कहां ते।।'] },
-      { type: 'चौपाई', num: '— १६ —', lines: ['तुम उपकार सुग्रीवहिं कीन्हा।', 'राम मिलाय राज पद दीन्हा।।'] },
-      { type: 'चौपाई', num: '— १७ —', lines: ['तुम्हरो मंत्र बिभीषन माना।', 'लंकेस्वर भए सब जग जाना।।'] },
-      { type: 'चौपाई', num: '— १८ —', lines: ['जुग सहस्र जोजन पर भानू।', 'लील्यो ताहि मधुर फल जानू।।'] },
-      { type: 'चौपाई', num: '— १९ —', lines: ['प्रभु मुद्रिका मेलि मुख माहीं।', 'जलधि लांघि गये अचरज नाहीं।।'] },
-      { type: 'चौपाई', num: '— २० —', lines: ['दुर्गम काज जगत के जेते।', 'सुगम अनुग्रह तुम्हरे तेते।।'] },
-      { type: 'चौपाई', num: '— २१ —', lines: ['राम दुआरे तुम रखवारे।', 'होत न आज्ञा बिनु पैसारे।।'] },
-      { type: 'चौपाई', num: '— २२ —', lines: ['सब सुख लहै तुम्हारी सरना।', 'तुम रक्षक काहू को डर ना।।'] },
-      { type: 'चौपाई', num: '— २३ —', lines: ['आपन तेज सम्हारो आपै।', 'तीनों लोक हांक तें कांपै।।'] },
-      { type: 'चौपाई', num: '— २४ —', lines: ['भूत पिसाच निकट नहिं आवै।', 'महाबीर जब नाम सुनावै।।'] },
-      { type: 'चौपाई', num: '— २५ —', lines: ['नासै रोग हरै सब पीरा।', 'जपत निरंतर हनुमत बीरा।।'] },
-      { type: 'चौपाई', num: '— २६ —', lines: ['संकट तें हनुमान छुड़ावै।', 'मन क्रम बचन ध्यान जो लावै।।'] },
-      { type: 'चौपाई', num: '— २७ —', lines: ['सब पर राम तपस्वी राजा।', 'तिन के काज सकल तुम साजा।'] },
-      { type: 'चौपाई', num: '— २८ —', lines: ['और मनोरथ जो कोई लावै।', 'सोइ अमित जीवन फल पावै।।'] },
-      { type: 'चौपाई', num: '— २९ —', lines: ['चारों जुग परताप तुम्हारा।', 'है परसिद्ध जगत उजियारा।।'] },
-      { type: 'चौपाई', num: '— ३० —', lines: ['साधु-संत के तुम रखवारे।', 'असुर निकंदन राम दुलारे।।'] },
-      { type: 'चौपाई', num: '— ३१ —', lines: ['अष्ट सिद्धि नौ निधि के दाता।', 'अस बर दीन जानकी माता।।'] },
-      { type: 'चौपाई', num: '— ३२ —', lines: ['राम रसायन तुम्हरे पासा।', 'सदा रहो रघुपति के दासा।।'] },
-      { type: 'चौपाई', num: '— ३३ —', lines: ['तुम्हरे भजन राम को पावै।', 'जनम-जनम के दुख बिसरावै।।'] },
-      { type: 'चौपाई', num: '— ३४ —', lines: ['अन्तकाल रघुबर पुर जाई।', 'जहां जन्म हरि-भक्त कहाई।।'] },
-      { type: 'चौपाई', num: '— ३५ —', lines: ['और देवता चित्त न धरई।', 'हनुमत सेइ सर्ब सुख करई।।'] },
-      { type: 'चौपाई', num: '— ३६ —', lines: ['संकट कटै मिटै सब पीरा।', 'जो सुमिरै हनुमत बलबीरा।।'] },
-      { type: 'चौपाई', num: '— ३७ —', lines: ['जै जै जै हनुमान गोसाईं।', 'कृपा करहु गुरुदेव की नाईं।।'] },
-      { type: 'चौपाई', num: '— ३८ —', lines: ['जो सत बार पाठ कर कोई।', 'छूटहि बंदि महा सुख होई।।'] },
-      { type: 'चौपाई', num: '— ३९ —', lines: ['जो यह पढ़ै हनुमान चालीसा।', 'होय सिद्धि साखी गौरीसा।।'] },
-      { type: 'चौपाई', num: '— ४० —', lines: ['तुलसीदास सदा हरि चेरा।', 'कीजै नाथ हृदय मंह डेरा।।'] },
-      { type: 'दोहा', num: '', lines: ['पवन तनय संकट हरन, मंगल मूरति रूप।', 'राम लखन सीता सहित, हृदय बसहु सुर भूप।।'] },
+      {
+        type: 'दोहा', num: '',
+        lines: ['श्रीगुरु चरन सरोज रज, निज मनु मुकुरु सुधारि।', 'बरनऊं रघुबर बिमल जसु, जो दायकु फल चारि।।', '', 'बुद्धिहीन तनु जानिके, सुमिरौं पवन-कुमार।', 'बल बुद्धि बिद्या देहु मोहिं, हरहु कलेस बिकार।।'],
+        meaning: "With the dust of Guru's lotus feet, I cleanse the mirror of my mind and narrate the sacred glory of Sri Ram — the Supreme among the Raghu dynasty and the giver of the four attainments of life. Knowing myself to be ignorant, I urge you, O Hanuman — Son of Pavan! Kindly bestow on me strength, wisdom and knowledge, removing all my miseries and blemishes."
+      },
+      { type: 'चौपाई', num: '— १ —', lines: ['जय हनुमान ज्ञान गुन सागर।', 'जय कपीस तिहुं लोक उजागर।।'], meaning: "Victory to Thee, O Hanuman — Ocean of wisdom and virtue! Victory to the Lord of monkeys, who illuminates all three worlds with his glory." },
+      { type: 'चौपाई', num: '— २ —', lines: ['रामदूत अतुलित बल धामा।', 'अंजनि-पुत्र पवनसुत नामा।।'], meaning: "You are the divine messenger of Shri Ram and a repository of immeasurable strength. You are also known as Anjaniputra — son of Anjana — and Pavanputra — son of the Wind God." },
+      { type: 'चौपाई', num: '— ३ —', lines: ['महाबीर बिक्रम बजरंगी।', 'कुमति निवार सुमति के संगी।।'], meaning: "O Hanumanji! You are the great hero, valiant and brave, with a body as strong as a thunderbolt. You are the dispeller of evil thoughts and the companion of good sense and wisdom." },
+      { type: 'चौपाई', num: '— ४ —', lines: ['कंचन बरन बिराज सुबेसा।', 'कानन कुंडल कुंचित केसा।।'], meaning: "Shri Hanumanji's physique glows with a golden hue. His dress is beautiful and graceful, wearing kundal earrings, with long and curly hair adorning his divine form." },
+      { type: 'चौपाई', num: '— ५ —', lines: ['हाथ बज्र औ ध्वजा बिराजै।', 'कांधे मूंज जनेऊ साजै।'], meaning: "Shri Hanumanji holds a thunderbolt (vajra) in one hand and a victory banner in the other. A sacred thread made of munja grass adorns his shoulder with great dignity." },
+      { type: 'चौपाई', num: '— ६ —', lines: ['संकर सुवन केसरीनंदन।', 'तेज प्रताप महा जग बन्दन।।'], meaning: "O Hanumanji! You are the son of Lord Shiva's divine energy and the delight of Shri Kesari. Ever radiant with mighty glory, you are revered and worshipped throughout the entire universe." },
+      { type: 'चौपाई', num: '— ७ —', lines: ['विद्यावान गुनी अति चातुर।', 'राम काज करिबे को आतुर।।'], meaning: "O Shri Hanumanji! You are the repository of all learning, rich in virtues and exceptionally wise. You are ever eagerly keen to accomplish the tasks and missions of Shri Ram." },
+      { type: 'चौपाई', num: '— ८ —', lines: ['प्रभु चरित्र सुनिबे को रसिया।', 'राम लखन सीता मन बसिया।।'], meaning: "You are deeply devoted to listening to the narrations of Lord Ram's life story and revel in its joy. You dwell eternally in the hearts of Shri Ram, Laxman and Sita." },
+      { type: 'चौपाई', num: '— ९ —', lines: ['सूक्ष्म रूप धरि सियहिं दिखावा।', 'बिकट रूप धरि लंक जरावा।।'], meaning: "You appeared before Mother Sita in a tiny, diminutive form and spoke to her softly. Then you assumed an awe-inspiring, fearsome form and set Lanka ablaze, striking terror in the hearts of demons." },
+      { type: 'चौपाई', num: '— १० —', lines: ['भीम रूप धरि असुर संहारे।', 'रामचंद्र के काज संवारे।।'], meaning: "Assuming a mighty and terrifying form, you annihilated the demons in Lanka and beautifully accomplished all the tasks and missions of Shri Ramchandra." },
+      { type: 'चौपाई', num: '— ११ —', lines: ['लाय सजीवन लखन जियाये।', 'श्रीरघुबीर हरषि उर लाये।।'], meaning: "When Hanumanji brought the Sanjivani herb and revived Laxman from near-death, Shri Ram — overjoyed and overwhelmed with love — took him in a deep and heartfelt embrace." },
+      { type: 'चौपाई', num: '— १२ —', lines: ['रघुपति कीन्ही बहुत बड़ाई।', 'तुम मम प्रिय भरतहि सम भाई।।'], meaning: "Shri Ram lavishly praised Hanumanji's excellence and said, 'You are as dear to me as my own beloved brother Bharat — there is no difference between you two in my heart.'" },
+      { type: 'चौपाई', num: '— १३ —', lines: ['सहस बदन तुम्हरो जस गावैं।', 'अस कहि श्रीपति कंठ लगावैं।।'], meaning: "Shri Ram embraced Hanumanji saying: 'Let even the thousand-tongued Sheshnag — the cosmic serpent — sing your glories!' With these words, the Lord of Lakshmi held him close to his heart." },
+      { type: 'चौपाई', num: '— १४ —', lines: ['सनकादिक ब्रह्मादि मुनीसा।', 'नारद सारद सहित अहीसा।।'], meaning: "The four Sanat Kumars (Sanak, Sanandan, Sanatana, Sanatkumar), Lord Brahma, the great sages, Narad Muni, Goddess Saraswati, and even Sheshnag — all are unable to fully sing the glories of Hanumanji." },
+      { type: 'चौपाई', num: '— १५ —', lines: ['जम कुबेर दिगपाल जहां ते।', 'कबि कोबिद कहि सके कहां ते।।'], meaning: "What to speak of earthly beings — even the gods like Yamraj (lord of death), Kubera (lord of wealth), the guardians of the eight directions, and the most learned poets and scholars cannot fully narrate Hanumanji's greatness." },
+      { type: 'चौपाई', num: '— १६ —', lines: ['तुम उपकार सुग्रीवहिं कीन्हा।', 'राम मिलाय राज पद दीन्हा।।'], meaning: "O Hanumanji! You rendered an extraordinary service to Sugriva — it was you who united him with Shri Ram and had him installed on the royal throne of Kishkindha." },
+      { type: 'चौपाई', num: '— १७ —', lines: ['तुम्हरो मंत्र बिभीषन माना।', 'लंकेस्वर भए सब जग जाना।।'], meaning: "By heeding your wise counsel and guidance, Vibhishana turned away from evil and surrendered to Rama. He became the Lord of Lanka, and this is known across the entire universe." },
+      { type: 'चौपाई', num: '— १८ —', lines: ['जुग सहस्र जोजन पर भानू।', 'लील्यो ताहि मधुर फल जानू।।'], meaning: "In your childhood, you swallowed the Sun — situated at a distance of thousands of yojanas — mistaking it for a sweet, delicious fruit. Such was the boundless power and fearlessness you possessed even as a child." },
+      { type: 'चौपाई', num: '— १९ —', lines: ['प्रभु मुद्रिका मेलि मुख माहीं।', 'जलधि लांघि गये अचरज नाहीं।।'], meaning: "Carrying Lord Ram's signet ring in your mouth, you leapt across the vast ocean to reach Lanka. For one of your divine powers and devotion, there is truly no wonder in this feat." },
+      { type: 'चौपाई', num: '— २० —', lines: ['दुर्गम काज जगत के जेते।', 'सुगम अनुग्रह तुम्हरे तेते।।'], meaning: "O Hanumanji! All the most difficult and seemingly impossible tasks in this world become easy and effortless through your grace and divine blessings." },
+      { type: 'चौपाई', num: '— २१ —', lines: ['राम दुआरे तुम रखवारे।', 'होत न आज्ञा बिनु पैसारे।।'], meaning: "O Hanumanji! You are the guardian and the sentinel at the doors of Shri Ram's divine abode. No one — not even the greatest — may enter without first receiving your permission and blessing." },
+      { type: 'चौपाई', num: '— २२ —', lines: ['सब सुख लहै तुम्हारी सरना।', 'तुम रक्षक काहू को डर ना।।'], meaning: "By taking refuge at your feet, one attains all happiness and fulfillment in life. Under your divine protection, no one need fear any danger, enemy or misfortune whatsoever." },
+      { type: 'चौपाई', num: '— २३ —', lines: ['आपन तेज सम्हारो आपै।', 'तीनों लोक हांक तें कांपै।।'], meaning: "Only you yourself can contain and control your own immense power and brilliance. When you roar with full might, all three worlds — heaven, earth and the underworld — tremble with fear." },
+      { type: 'चौपाई', num: '— २४ —', lines: ['भूत पिसाच निकट नहिं आवै।', 'महाबीर जब नाम सुनावै।।'], meaning: "O Great Brave One! Ghosts, evil spirits, demons and all dark forces dare not come near a person who recites or remembers your holy name. Your name alone is the mightiest shield." },
+      { type: 'चौपाई', num: '— २५ —', lines: ['नासै रोग हरै सब पीरा।', 'जपत निरंतर हनुमत बीरा।।'], meaning: "O brave Hanumanji! By continuously chanting your holy name with devotion, all diseases perish, all pain and suffering completely disappears, and the devotee is restored to health and peace." },
+      { type: 'चौपाई', num: '— २६ —', lines: ['संकट तें हनुमान छुड़ावै।', 'मन क्रम बचन ध्यान जो लावै।।'], meaning: "Hanumanji liberates from all troubles and crises those who remember him sincerely — in thought, in deed, and in words. True devotion of heart, mind and speech brings his divine protection." },
+      { type: 'चौपाई', num: '— २७ —', lines: ['सब पर राम तपस्वी राजा।', 'तिन के काज सकल तुम साजा।'], meaning: "O Hanumanji! Shri Ram himself — the supreme Lord, the great ascetic and King of all devoted souls — relies on you. You accomplish all his tasks and wishes, serving as his most trusted devotee-servant." },
+      { type: 'चौपाई', num: '— २८ —', lines: ['और मनोरथ जो कोई लावै।', 'सोइ अमित जीवन फल पावै।।'], meaning: "O Hanumanji! Whoever comes to you with any wish or desire — worldly or spiritual — you fulfill them completely and bestow the eternal, boundless nectar of life as the highest fruit." },
+      { type: 'चौपाई', num: '— २९ —', lines: ['चारों जुग परताप तुम्हारा।', 'है परसिद्ध जगत उजियारा।।'], meaning: "O Hanumanji! Your magnificent glory and splendour has been celebrated across all four cosmic ages — Satya, Treta, Dwapar and Kali. Your fame radiantly illuminates the entire cosmos." },
+      { type: 'चौपाई', num: '— ३० —', lines: ['साधु-संत के तुम रखवारे।', 'असुर निकंदन राम दुलारे।।'], meaning: "O Hanumanji! You are the saviour and the guardian angel of all saints, sages and righteous souls. You are the destroyer of all demons and the most beloved, cherished darling of Shri Ram." },
+      { type: 'चौपाई', num: '— ३१ —', lines: ['अष्ट सिद्धि नौ निधि के दाता।', 'अस बर दीन जानकी माता।।'], meaning: "Mother Sita (Janaki) has blessed you with the power to grant anyone all eight yogic Siddhis (supernatural powers) and the nine Nidhis (divine treasures) — according to the devotee's true need and wish." },
+      { type: 'चौपाई', num: '— ३२ —', lines: ['राम रसायन तुम्हरे पासा।', 'सदा रहो रघुपति के दासा।।'], meaning: "O Hanumanji! You hold within you the very essence and elixir of devotion to Shri Ram — the most potent of all. You remain eternally and joyfully in the service of Shri Ram, the Lord of the Raghu dynasty." },
+      { type: 'चौपाई', num: '— ३३ —', lines: ['तुम्हरे भजन राम को पावै।', 'जनम-जनम के दुख बिसरावै।।'], meaning: "O Hanumanji! Through sincere devotion and worship of you, one attains Shri Ram himself and becomes completely free from the accumulated sorrows and suffering of many lifetimes." },
+      { type: 'चौपाई', num: '— ३४ —', lines: ['अन्तकाल रघुबर पुर जाई।', 'जहां जन्म हरि-भक्त कहाई।।'], meaning: "At the time of death, the devotee enters the eternal divine abode of Shri Ram — Vaikuntha. And even if born again on earth, such a person is celebrated and known as a devoted bhakta of Hari." },
+      { type: 'चौपाई', num: '— ३५ —', lines: ['और देवता चित्त न धरई।', 'हनुमत सेइ सर्ब सुख करई।।'], meaning: "You need not hold any other god or demigod in your mind. Hanumanji alone — through his grace and protection — bestows all happiness, blessings and fulfilment in every sphere of life." },
+      { type: 'चौपाई', num: '— ३६ —', lines: ['संकट कटै मिटै सब पीरा।', 'जो सुमिरै हनुमत बलबीरा।।'], meaning: "O powerful and brave Hanumanji! All crises are cut away and all pain completely vanishes for those who remember you sincerely, calling upon your name with faith and devotion." },
+      { type: 'चौपाई', num: '— ३७ —', lines: ['जै जै जै हनुमान गोसाईं।', 'कृपा करहु गुरुदेव की नाईं।।'], meaning: "Hail! Hail! Hail! O Lord Hanumanji, the master of all! I humbly beseech you to shower your grace and blessings upon me in the capacity of my supreme Guru — my highest teacher and guide." },
+      { type: 'चौपाई', num: '— ३८ —', lines: ['जो सत बार पाठ कर कोई।', 'छूटहि बंदि महा सुख होई।।'], meaning: "One who recites this Hanuman Chalisa one hundred times with devotion and sincerity becomes free from the bondage of life and death, and ultimately attains the highest bliss and liberation." },
+      { type: 'चौपाई', num: '— ३९ —', lines: ['जो यह पढ़ै हनुमान चालीसा।', 'होय सिद्धि साखी गौरीसा।।'], meaning: "As Lord Shiva himself stands as witness, all those who recite this Hanuman Chalisa regularly and with devotion are sure to receive divine blessings, success and fulfilment in all their endeavours." },
+      { type: 'चौपाई', num: '— ४० —', lines: ['तुलसीदास सदा हरि चेरा।', 'कीजै नाथ हृदय मंह डेरा।।'], meaning: "Tulsidas, ever the humble servant of Lord Hari, offers this prayer: 'O my Lord Hanumanji! Please enshrine yourself within my heart, and make it your eternal, blessed abode.'" },
+      { type: 'दोहा', num: '', lines: ['पवन तनय संकट हरन, मंगल मूरति रूप।', 'राम लखन सीता सहित, हृदय बसहु सुर भूप।।'], meaning: "O Shri Hanuman — Son of Pavan, the remover of all troubles, the very embodiment of auspiciousness and blessings — please reside in my heart together with Shri Ram, Laxman and Sita." },
     ];
     const TOTAL = ALL_VERSES.length;
 
-    /* ════════════════════════════ CURSOR ════════════════════════════ */
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+    /* ═════ INJECT MEANINGS INTO PAGE ═════ */
+    ALL_VERSES.forEach((v, i) => {
+      const el = document.getElementById('m' + i);
+      if (el) el.textContent = v.meaning;
     });
 
-    /* ════════════════════════════ PARTICLES ════════════════════════════ */
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
+    /* ═════ MEANING TOGGLE (scroll view) ═════ */
+    function toggleMeaning(btn) {
+      const box = btn.nextElementSibling;
+      const isOpen = box.classList.contains('open');
+      box.classList.toggle('open', !isOpen);
+      btn.classList.toggle('active', !isOpen);
+      btn.querySelector('span:first-child').textContent = isOpen ? '🔤 Meaning' : '🔼 Hide';
+    }
+
+    /* ═════ CURSOR ═════ */
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px' });
+
+    /* ═════ PARTICLES ═════ */
+    const canvas = document.getElementById('particles'), ctx = canvas.getContext('2d');
     let W, H, particles = [];
     function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight }
     resize(); window.addEventListener('resize', resize);
-    class Particle {
-      constructor() { this.reset() }
-      reset() {
-        this.x = Math.random() * W; this.y = Math.random() * H; this.r = .5 + Math.random() * 1.5;
-        this.vx = (Math.random() - .5) * .3; this.vy = -.2 - Math.random() * .4; this.a = Math.random();
-        this.maxA = .4 + Math.random() * .5; this.growing = true; this.hue = Math.random() > .5 ? [255, 215, 0] : [255, 107, 0]
-      }
-      update() {
-        this.x += this.vx; this.y += this.vy;
-        if (this.growing) { this.a += .01; if (this.a >= this.maxA) this.growing = false } else this.a -= .005;
-        if (this.a <= 0 || this.y < -10) this.reset()
-      }
-      draw() {
-        ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${this.hue},${this.a})`; ctx.fill()
-      }
-    }
-    for (let i = 0; i < 120; i++) particles.push(new Particle());
+    class Particle { constructor() { this.reset() } reset() { this.x = Math.random() * W; this.y = Math.random() * H; this.r = .5 + Math.random() * 1.5; this.vx = (Math.random() - .5) * .3; this.vy = -.2 - Math.random() * .4; this.a = Math.random(); this.maxA = .4 + Math.random() * .5; this.growing = true; this.hue = Math.random() > .5 ? '255,215,0' : '255,107,0' } update() { this.x += this.vx; this.y += this.vy; if (this.growing) { this.a += .01; if (this.a >= this.maxA) this.growing = false } else this.a -= .005; if (this.a <= 0 || this.y < -10) this.reset() } draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(${this.hue},${this.a})`; ctx.fill() } }
+    for (let i = 0; i < 120; i++)particles.push(new Particle());
     function animLoop() { ctx.clearRect(0, 0, W, H); particles.forEach(p => { p.update(); p.draw() }); requestAnimationFrame(animLoop) }
     animLoop();
 
-    /* ════════════════════════════ SCROLL PROGRESS ════════════════════════════ */
+    /* ═════ SCROLL PROGRESS ═════ */
     const progressBar = document.getElementById('scrollProgress');
-    window.addEventListener('scroll', () => {
-      const doc = document.documentElement;
-      const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
-      progressBar.style.width = Math.min(pct, 100) + '%';
-    }, { passive: true });
+    window.addEventListener('scroll', () => { const d = document.documentElement; progressBar.style.width = Math.min(d.scrollTop / (d.scrollHeight - d.clientHeight) * 100, 100) + '%' }, { passive: true });
 
-    /* ════════════════════════════ SCROLL REVEAL ════════════════════════════ */
+    /* ═════ SCROLL REVEAL ═════ */
     const cards = document.querySelectorAll('.verse-card');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) }
-      });
-    }, { threshold: .15 });
+    const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) } }) }, { threshold: .12 });
     cards.forEach((c, i) => { c.style.transitionDelay = (i % 3) * 80 + 'ms'; observer.observe(c) });
-    cards.forEach(c => {
-      c.addEventListener('mouseenter', () => { c.style.background = 'linear-gradient(145deg,rgba(40,15,0,.85) 0%,rgba(100,20,0,.6) 100%)' });
-      c.addEventListener('mouseleave', () => { c.style.background = '' });
-    });
 
-    /* ════════════════════════════ THEME TOGGLE ════════════════════════════ */
-    const html = document.documentElement;
-    const themeBtn = document.getElementById('themeToggle');
-    const metaColor = document.getElementById('themeMetaColor');
+    /* ═════ THEME ═════ */
+    const html = document.documentElement, themeBtn = document.getElementById('themeToggle');
     let isDark = true;
-
-    function applyTheme(dark) {
-      isDark = dark;
-      html.setAttribute('data-theme', dark ? 'night' : 'day');
-      themeBtn.textContent = dark ? '🌙' : '☀️';
-      metaColor.content = dark ? '#1A0800' : '#FF6B00';
-      localStorage.setItem('hc-theme', dark ? 'night' : 'day');
-    }
-
+    function applyTheme(dark) { isDark = dark; html.setAttribute('data-theme', dark ? 'night' : 'day'); themeBtn.textContent = dark ? '🌙' : '☀️'; document.getElementById('themeMetaColor').content = dark ? '#1A0800' : '#FF6B00'; localStorage.setItem('hc-theme', dark ? 'night' : 'day') }
     themeBtn.addEventListener('click', () => applyTheme(!isDark));
+    if (localStorage.getItem('hc-theme') === 'day') applyTheme(false);
 
-    // Restore saved theme
-    const saved = localStorage.getItem('hc-theme');
-    if (saved === 'day') applyTheme(false);
-
-    /* ════════════════════════════ READING MODE ════════════════════════════ */
+    /* ═════ READING MODE ═════ */
     const overlay = document.getElementById('readingOverlay');
-    const stageEl = document.getElementById('readingStage');
-    const typeEl = document.getElementById('readingType');
-    const numEl = document.getElementById('readingNum');
+    const typeEl = document.getElementById('readingType'), numEl = document.getElementById('readingNum');
     const textWrap = document.getElementById('readingTextWrap');
-    const progFill = document.getElementById('readingProgFill');
-    const progLabel = document.getElementById('readingProgLabel');
+    const progFill = document.getElementById('readingProgFill'), progLabel = document.getElementById('readingProgLabel');
     const navLabel = document.getElementById('readingNavLabel');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    let currentIdx = 0;
+    const prevBtn = document.getElementById('prevBtn'), nextBtn = document.getElementById('nextBtn');
+    const rMeaningBtn = document.getElementById('readingMeaningBtn');
+    const rMeaningWrap = document.getElementById('readingMeaningWrap');
+    const rMeaningText = document.getElementById('readingMeaningText');
+    let currentIdx = 0, meaningOpen = false;
 
-    function renderVerse(idx, dir = 0) {
+    function renderVerse(idx) {
       const v = ALL_VERSES[idx];
       typeEl.textContent = v.type;
       numEl.textContent = v.num;
@@ -1696,36 +1971,49 @@
       progLabel.textContent = `${idx + 1} / ${TOTAL}`;
       prevBtn.disabled = idx === 0;
       nextBtn.disabled = idx === TOTAL - 1;
-
-      // Build text HTML
+      // Verse lines
       let html = '';
       v.lines.forEach(line => {
         if (line === '') html += '<span class="reading-sep">· · ·</span>';
         else html += `<span class="reading-line">${line}</span>`;
       });
-      textWrap.style.animation = 'none';
-      textWrap.offsetHeight; // force reflow
-      textWrap.innerHTML = html;
-      textWrap.style.animation = 'reading-in .4s cubic-bezier(.25,.8,.25,1) both';
+      textWrap.style.animation = 'none'; textWrap.offsetHeight;
+      textWrap.innerHTML = html; textWrap.style.animation = 'reading-in .4s cubic-bezier(.25,.8,.25,1) both';
+      // Meaning — keep state, update content
+      rMeaningText.textContent = v.meaning || '';
+      if (meaningOpen) { rMeaningWrap.style.animation = 'none'; rMeaningWrap.offsetHeight; rMeaningWrap.style.animation = '' }
     }
 
-    function openReading(startIdx = 0) {
-      currentIdx = startIdx;
-      renderVerse(currentIdx);
-      overlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
+    function setMeaning(open) {
+      meaningOpen = open;
+      rMeaningWrap.classList.toggle('open', open);
+      rMeaningBtn.classList.toggle('active', open);
+      rMeaningBtn.querySelector('span:first-child').textContent = open ? '🔼 Hide Meaning' : '🔤 English Meaning';
     }
-    function closeReading() {
-      overlay.classList.remove('open');
-      document.body.style.overflow = '';
+
+    rMeaningBtn.addEventListener('click', () => setMeaning(!meaningOpen));
+
+    function openReading(idx = 0) {
+      currentIdx = idx; setMeaning(false); renderVerse(currentIdx);
+      overlay.classList.add('open'); document.body.style.overflow = 'hidden';
     }
+    function closeReading() { overlay.classList.remove('open'); document.body.style.overflow = '' }
 
     document.getElementById('heroReadBtn').addEventListener('click', () => openReading(0));
     document.getElementById('readingFab').addEventListener('click', () => openReading(currentIdx));
     document.getElementById('readingClose').addEventListener('click', closeReading);
-
     prevBtn.addEventListener('click', () => { if (currentIdx > 0) { currentIdx--; renderVerse(currentIdx) } });
     nextBtn.addEventListener('click', () => { if (currentIdx < TOTAL - 1) { currentIdx++; renderVerse(currentIdx) } });
+
+    // Click verse card → open reading at that verse
+    document.querySelectorAll('.verse-card[data-verse]').forEach(card => {
+      card.style.cursor = 'pointer';
+      card.setAttribute('title', 'Click to read in full-screen mode');
+      card.addEventListener('click', e => {
+        if (e.target.closest('.meaning-btn') || e.target.closest('.meaning-box')) return;
+        openReading(parseInt(card.dataset.verse));
+      });
+    });
 
     // Keyboard
     document.addEventListener('keydown', e => {
@@ -1733,78 +2021,28 @@
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextBtn.click();
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevBtn.click();
       if (e.key === 'Escape') closeReading();
+      if (e.key === 'm' || e.key === 'M') setMeaning(!meaningOpen);
     });
 
-    // Touch swipe
-    let touchStartX = 0, touchStartY = 0;
-    overlay.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY }, { passive: true });
+    // Swipe
+    let tx = 0, ty = 0;
+    overlay.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY }, { passive: true });
     overlay.addEventListener('touchend', e => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      const dy = e.changedTouches[0].clientY - touchStartY;
+      const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
         if (dx < 0) nextBtn.click(); else prevBtn.click();
-        // Hide swipe hint after first use
         document.getElementById('swipeHint').style.opacity = '0';
       }
     }, { passive: true });
 
-    // Click on verse cards to open reading mode at that verse
-    document.querySelectorAll('.verse-card[data-verse]').forEach(card => {
-      card.addEventListener('click', () => {
-        const v = parseInt(card.dataset.verse);
-        openReading(v); // verse 1 = index 1 in ALL_VERSES
-      });
-      card.style.cursor = 'pointer';
-      card.title = 'क्लिक करें — Reading Mode';
-    });
-
-    /* ════════════════════════════ PWA ════════════════════════════ */
-    // Inline manifest via blob
-    const manifest = {
-      name: 'हनुमान चालीसा', short_name: 'Chalisa',
-      description: 'Hanuman Chalisa — Beautiful devotional web app',
-      start_url: '.', display: 'standalone',
-      background_color: '#1A0800', theme_color: '#FF6B00',
-      orientation: 'portrait',
-      icons: [
-        { src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="80" fill="%23FF6B00"/><text x="256" y="340" text-anchor="middle" font-size="300" fill="%23FFD700" font-family="serif">ॐ</text></svg>', sizes: '512x512', type: 'image/svg+xml', purpose: 'any maskable' },
-      ]
-    };
-    const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
-    const mUrl = URL.createObjectURL(blob);
-    const mLink = document.createElement('link');
-    mLink.rel = 'manifest'; mLink.href = mUrl;
-    document.head.appendChild(mLink);
-
-    // Service Worker for offline
-    const swCode = `
-const CACHE='chalisa-v1';
-const URLS=['/'];
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(URLS))));
-self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
-`;
-    try {
-      const swBlob = new Blob([swCode], { type: 'application/javascript' });
-      const swUrl = URL.createObjectURL(swBlob);
-      navigator.serviceWorker && navigator.serviceWorker.register(swUrl);
-    } catch (e) { }
-
-    // Install prompt
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', e => {
-      e.preventDefault(); deferredPrompt = e;
-      setTimeout(() => document.getElementById('installBanner').classList.add('show'), 3000);
-    });
-    document.getElementById('installBtn').addEventListener('click', async () => {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      document.getElementById('installBanner').classList.remove('show');
-    });
-    document.getElementById('dismissInstall').addEventListener('click', () => {
-      document.getElementById('installBanner').classList.remove('show');
-    });
+    /* ═════ PWA ═════ */
+    const manifest = { name: 'हनुमान चालीसा', short_name: 'Chalisa', description: 'Hanuman Chalisa devotional web app', start_url: '.', display: 'standalone', background_color: '#1A0800', theme_color: '#FF6B00', orientation: 'portrait', icons: [{ src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="80" fill="%23FF6B00"/><text x="256" y="340" text-anchor="middle" font-size="300" fill="%23FFD700" font-family="serif">ॐ</text></svg>', sizes: '512x512', type: 'image/svg+xml', purpose: 'any maskable' }] };
+    try { const b = new Blob([JSON.stringify(manifest)], { type: 'application/json' }); const l = document.createElement('link'); l.rel = 'manifest'; l.href = URL.createObjectURL(b); document.head.appendChild(l) } catch (e) { }
+    const swCode = `const C='chalisa-v1';self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(['/']))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
+    try { const b = new Blob([swCode], { type: 'application/javascript' }); navigator.serviceWorker && navigator.serviceWorker.register(URL.createObjectURL(b)) } catch (e) { }
+    let dp; window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); dp = e; setTimeout(() => document.getElementById('installBanner').classList.add('show'), 3000) });
+    document.getElementById('installBtn').addEventListener('click', async () => { if (!dp) return; dp.prompt(); await dp.userChoice; dp = null; document.getElementById('installBanner').classList.remove('show') });
+    document.getElementById('dismissInstall').addEventListener('click', () => document.getElementById('installBanner').classList.remove('show'));
   </script>
 </body>
 
